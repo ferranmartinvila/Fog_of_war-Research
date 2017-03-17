@@ -1,0 +1,23 @@
+<data civilization ="Teutons">
+  <units>
+   <id xml = "archer.xml"/>
+   <id xml = "arbalest.xml"/>
+   <id xml = "militia.xml"/>
+   <id xml = "cavalier.xml"/>
+   <id xml = "cavalry_archer.xml"/>
+   <id xml = "elite_skirmisher.xml"/>
+   <id xml = "heavy_cavalry_archer.xml"/>
+   <id xml = "knight.xml"/>
+   <id xml = "monk.xml"/>
+   <id xml = "paladin.xml"/>
+   <id xml = "pikeman.xml"/>
+   <id xml = "spearman.xml"/>
+   <id xml = "villager.xml"/>
+  </units>
+  <buildings>
+   <id xml = "town_center_feudal.xml"/>
+  </buildings>
+  <resources>
+   <id xml ="resources.xml"/>
+  </resources>
+</data>
