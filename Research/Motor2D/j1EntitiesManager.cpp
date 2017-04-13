@@ -173,15 +173,9 @@ bool j1EntitiesManager::AddUnitDefinition(const pugi::xml_node* unit_node)
 	//Generate a new unit definition from the node & check if is a villager to allocate villager class
 	Unit* new_def = nullptr;
 	UNIT_TYPE unit_type = App->animator->StrToUnitEnum(unit_node->attribute("unit_type").as_string());
-	if (unit_type == VILLAGER)
-	{
-		Villager* new_villager = new Villager();
-		new_def = new_villager;
-	}
-	else
-	{
-		new_def = new Unit();
-	}
+
+	new_def = new Unit();
+	
 	
 	//Unit ID ---------------
 	/*Name*/			new_def->SetName(unit_node->attribute("name").as_string());
@@ -227,14 +221,6 @@ bool j1EntitiesManager::AddUnitDefinition(const pugi::xml_node* unit_node)
 	/*Population Cost*/	new_def->SetPopulationCost(unit_node->attribute("population_cost").as_uint());
 	/*Train Time*/		new_def->SetTrainTime(unit_node->attribute("train_time").as_uint());
 
-
-	//Villager Data ---------
-	if (unit_type == VILLAGER)
-	{
-		/*Resources Capacity*/	((Villager*)new_def)->SetResourcesCapacity(unit_node->attribute("resources_capacity").as_uint());
-		/*Recollect Capacity*/	((Villager*)new_def)->SetRecollectCapacity(unit_node->attribute("recollect_capacity").as_uint());
-		/*Recollect Rate*/		((Villager*)new_def)->SetRecollectRate(unit_node->attribute("recollect_rate").as_uint());
-	}
 
 	//Add the generated unit in the units definitions entities manager array
 	units_defs.push_back(new_def);
@@ -450,17 +436,10 @@ Unit* j1EntitiesManager::GenerateUnit(UNIT_TYPE type, bool push_in_list)
 	{
 		if (units_defs[k]->GetUnitType() == type)
 		{
-			//If the unit to generate is a villager we need to generate a villager class 
-			if (type == VILLAGER)
-			{
-				Villager* new_villager = new Villager(*(Villager*)units_defs[k]);
-				new_unit = new_villager;
-			}
-			else
-			{
-				//Build unit
-				new_unit = new Unit(*units_defs[k]);
-			}
+
+			//Build unit
+			new_unit = new Unit(*units_defs[k]);
+			
 			//Set unit animation
 			App->animator->UnitPlay(new_unit);
 			

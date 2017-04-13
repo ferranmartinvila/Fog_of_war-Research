@@ -17,7 +17,7 @@ public:
 	// Destructor
 	virtual ~j1Scene();
 
-	void Init() { active = false; }
+	void Init() { active = true; }
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -42,17 +42,6 @@ public:
 
 private:
 
-	//Scene Test Entities
-	/*
-	//Building*	town_center = nullptr;
-	Resource*	tree = nullptr;
-	Resource*	chop = nullptr;
-	Resource*   tree_cut = nullptr;
-	Resource*	berry_bush = nullptr;
-	Resource*	gold_ore = nullptr;
-	Resource*	stone_ore = nullptr;
-	*/
-
 	//Scene	UI
 	UI_Element* scene_1_screen;
 
@@ -61,7 +50,7 @@ public:
 	//Map Folders
 	std::vector <std::string> map_folder;
 
-	uint current_map=0;
+	uint current_map = 0;
 
 
 	//Troops for testing

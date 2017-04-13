@@ -8,9 +8,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Textures.h"
-#include "j1Audio.h"
 #include "j1Scene.h"
-#include "j1Menu.h"
 #include "j1FileSystem.h"
 #include "j1Map.h"
 #include "j1Fonts.h"
@@ -33,9 +31,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	win = new j1Window();
 	render = new j1Render();
 	tex = new j1Textures();
-	audio = new j1Audio();
 	scene = new j1Scene();
-	menu = new j1Menu();
 	fs = new j1FileSystem();
 	map = new j1Map();
 	font = new j1Fonts();
@@ -52,7 +48,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
-	AddModule(audio);
 	AddModule(map);
 	AddModule(font);
 	AddModule(pathfinding);
@@ -64,7 +59,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// scene last
 	AddModule(scene);
-	AddModule(menu);
 
 
 	AddModule(console);
@@ -222,22 +216,16 @@ bool j1App::Update()
 
 	if (ret == true)
 	{
-		BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Aqua);
-		BROFILER_FRAME("PreUpdate");
 		ret = PreUpdate();
 	}
 
 	if (ret == true)
 	{
-		BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Coral);
-		BROFILER_FRAME("DoUpdate");
 		ret = DoUpdate();
 	}
 
 	if (ret == true)
 	{
-		BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Green);
-		BROFILER_FRAME("PostUpdate");
 		ret = PostUpdate();
 	}
 

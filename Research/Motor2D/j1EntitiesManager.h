@@ -3,7 +3,6 @@
 
 #include "j1Module.h"
 #include "BaseEntities.h"
-#include "Units.h"
 
 class j1EntitiesManager : public j1Module
 {
