@@ -52,16 +52,8 @@ bool j1Scene::Start()
 
 
 	// Entities Build -------------------------------------
-	arbalest = App->entities_manager->GenerateUnit(UNIT_TYPE::MILITIA); ///Don't use VILLAGER_CARRY animations are differently sorted and WILL break the code
-	arbalest->SetPosition(350, 280);
-	/*tree = App->entities_manager->GenerateResource(RESOURCE_TYPE::TREE);
-	tree->SetPosition(130, 650);
-	berry_bush = App->entities_manager->GenerateResource(RESOURCE_TYPE::BERRY_BUSH);
-	berry_bush->SetPosition(440, 380);
-	gold_ore = App->entities_manager->GenerateResource(RESOURCE_TYPE::GOLD_ORE);
-	gold_ore->SetPosition(300, 480);
-	stone_ore = App->entities_manager->GenerateResource(RESOURCE_TYPE::STONE_ORE);
-	stone_ore->SetPosition(200, 480);*/
+	player = App->entities_manager->GenerateUnit(); 
+	player->SetPosition(350, 280);
 	// ----------------------------------------------------
 
 
@@ -136,96 +128,42 @@ bool j1Scene::Update(float dt)
 
 
 	//Test unit animations --------------
-	fPoint pos = arbalest->GetPosition();
+	fPoint pos = player->GetPosition();
 	float speed = 95;
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
-		arbalest->SetDirection(DIRECTION_TYPE::NORTH);
-		App->animator->UnitPlay(arbalest);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT)
-	{
-		arbalest->SetDirection(DIRECTION_TYPE::NORTH_EAST);
-		App->animator->UnitPlay(arbalest);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT)
-	{
-		arbalest->SetDirection(DIRECTION_TYPE::NORTH_WEST);
-		App->animator->UnitPlay(arbalest);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-	{
-		arbalest->SetDirection(DIRECTION_TYPE::SOUTH);
-		App->animator->UnitPlay(arbalest);
-	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		arbalest->SetDirection(DIRECTION_TYPE::WEST);
-		App->animator->UnitPlay(arbalest);
 	}
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	{
 
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		arbalest->SetDirection(DIRECTION_TYPE::EAST);
-		App->animator->UnitPlay(arbalest);
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		arbalest->SetDirection(DIRECTION_TYPE::SOUTH_WEST);
-		App->animator->UnitPlay(arbalest);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT)
-	{
-		arbalest->SetDirection(DIRECTION_TYPE::SOUTH_EAST);
-		App->animator->UnitPlay(arbalest);
-	}
-	
 
-	///Change unit animation
-	else if (App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
-	{
-		arbalest->SetAction(ACTION_TYPE::IDLE);
-		App->animator->UnitPlay(arbalest);
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		arbalest->SetAction(ACTION_TYPE::WALK);
-		App->animator->UnitPlay(arbalest);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_REPEAT)
-	{
-		arbalest->SetAction(ACTION_TYPE::ATTATCK);
-		App->animator->UnitPlay(arbalest);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_4) == KEY_REPEAT)
-	{
-		arbalest->SetAction(ACTION_TYPE::DIE);
-		App->animator->UnitPlay(arbalest);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_5) == KEY_REPEAT)
-	{
-		arbalest->SetAction(ACTION_TYPE::DISAPPEAR);
-		App->animator->UnitPlay(arbalest);
+
 	}
 
 
 	///Movement
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
 	{
-		arbalest->SetPosition(pos.x, pos.y + -speed * dt);
+		player->SetPosition(pos.x, pos.y + -speed * dt);
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
 	{
-		arbalest->SetPosition(pos.x, pos.y + speed * dt);
+		player->SetPosition(pos.x, pos.y + speed * dt);
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
 	{
-		arbalest->SetPosition(pos.x + speed * dt, pos.y );
+		player->SetPosition(pos.x + speed * dt, pos.y );
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
 	{
-		arbalest->SetPosition(pos.x + -speed * dt, pos.y);
+		player->SetPosition(pos.x + -speed * dt, pos.y);
 	}
 
 	// ------------------------------------------

@@ -4,9 +4,7 @@
 #include "j1Module.h"
 
 struct SDL_Texture;
-class Unit;
-class Building;
-class Resource;
+class MyEntity;
 
 class j1Scene : public j1Module
 {
@@ -54,7 +52,7 @@ public:
 
 
 	//Troops for testing
-	Unit*		arbalest = nullptr;
+	MyEntity*	player = nullptr;
 
 	//Change the current map
 	void Change_Map();

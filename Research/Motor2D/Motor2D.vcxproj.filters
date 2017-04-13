@@ -196,6 +196,9 @@
     <ClInclude Include="ClusterAbstraction.h">
       <Filter>Pathfinding</Filter>
     </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

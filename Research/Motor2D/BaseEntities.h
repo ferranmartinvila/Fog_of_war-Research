@@ -10,6 +10,40 @@
 #include "SDL/include/SDL_rect.h"
 #include "j1Timer.h"
 
+enum ENTITY_TY
+{
+	NO_TY = 0,
+	NEUTRAL,
+	ENEMY,
+	ALLY
+};
+
+class MyEntity
+{
+public:
+
+	MyEntity();
+	~MyEntity();
+
+private:
+
+	fPoint	position = { 0,0 };
+	Circle	vision_area;
+
+public:
+
+	//Game Loop Methods ---------------
+	void	Draw();
+
+	//Set Methods ---------------------
+	void	SetPosition(float x, float y);
+	void	SetVisionRange(uint range);
+
+	//Get Methods ---------------------
+	fPoint	GetPosition()const;
+
+};
+
 struct Animation;
 struct SDL_Texture;
 struct PathNode;
@@ -93,12 +127,6 @@ enum DIRECTION_TYPE
 	WEST,
 	NORTH_WEST
 };
-enum DIPLOMACY
-{
-	NEUTRAL,
-	ALLY,
-	ENEMY
-};
 enum ITEM_TYPE
 {
 	NO_ITEM,
@@ -134,7 +162,6 @@ protected:
 	std::string		name;
 	fPoint			position = { 0,0 };
 	ENTITY_TYPE		entity_type = NO_ENTITY;
-	DIPLOMACY		entity_diplomacy = NEUTRAL;
 	//Life -------------
 	uint			max_life = 0;
 	float			life = 0;
@@ -163,7 +190,6 @@ public:
 	void			SetName(const char* name_str);
 	virtual void	SetPosition(float x, float y);
 	void			SetEntityType(ENTITY_TYPE type);
-	void			SetDiplomacy(DIPLOMACY new_diplomacy);
 	void			SetMaxLife(uint full_life_val);
 	void			SetLife(uint life_val);
 	void			SetAnimation(Animation* anim);
@@ -176,7 +202,6 @@ public:
 	const fPoint&	GetPosition()const;
 	iPoint			GetPositionRounded()const;
 	ENTITY_TYPE		GetEntityType()const;
-	DIPLOMACY		GetDiplomacy()const;
 	uint			GetMaxLife()const;
 	virtual uint	GetLife()const;
 	Animation*		GetAnimation()const;
@@ -276,7 +301,6 @@ public:
 	virtual bool	Interact();
 	void			Focus(const iPoint& target);
 	bool			Attack();
-	bool			Cover();
 
 	//Bonus -----------------
 	void	AddBonus(BONUS_TYPE type, uint type_id, uint bonus, bool defence);
@@ -408,13 +432,6 @@ protected:
 public:
 
 	//Functionality -------------------
-	//Factory that generates any type of unit supported by the building
-	virtual Unit* CraftUnit(UNIT_TYPE new_unit_type)const;
-
-	//Cover / Release units
-	bool	CoverUnit(const Unit* target);
-	void	ReleaseUnit(const Unit* target);
-	void	ReleaseAllUnits();
 
 	//Draw ------------------
 	bool	Draw(bool debug);

@@ -5,6 +5,8 @@
 #include "p2Point.h"
 #include"SDL_image/include/SDL_image.h"
 
+class Rectng;
+
 enum COLLIDER_TYPE
 {
 	COLLIDER_NO_UI,
@@ -24,7 +26,7 @@ class Primitive
 public:
 
 	Primitive();
-	Primitive(const iPoint& position, const iPoint& displacement = { 0,0 } , const SDL_Color& color = { 0,0,0,255 });
+	Primitive(const iPoint& position, const iPoint& displacement = { 0,0 }, const SDL_Color& color = { 0,0,0,255 });
 	Primitive(const Primitive& copy);
 	~Primitive();
 
@@ -47,6 +49,7 @@ public:
 	void			SetColor(const SDL_Color& rgba);
 	//Get Methods
 	iPoint			GetPosition()const;
+	iPoint			GetDisplacement()const;
 	float			GetXAngle()const;
 	SDL_Color		GetColor()const;
 };
@@ -72,6 +75,15 @@ public:
 	//Functionality ---------
 	//Draw
 	bool	Draw();
+	//Shape functions
+	bool	IsIn(const fPoint* loc) const;
+	bool	Intersects(const SDL_Rect* rect) const;
+	bool	Intersects(const Circle* target)const;
+	bool	Intersects(const Rectng* target)const;
+	bool	Intersects(const iPoint* point)const;
+	iPoint  NearestPoint(const Circle* target)const;
+	iPoint	NearestPoint(const Rectng* target)const;
+
 	//Set Methods
 	void	SetRad(uint r);
 	//Get Methods
@@ -86,7 +98,7 @@ class Rectng : public Primitive
 {
 public:
 
-	Rectng(const iPoint& position = {0,0},uint width = 0, uint height = 0, const iPoint& displacement = { 0,0 });
+	Rectng(const iPoint& position = { 0,0 }, uint width = 0, uint height = 0, const iPoint& displacement = { 0,0 });
 	Rectng(const Rectng& copy);
 	~Rectng();
 
@@ -110,12 +122,12 @@ public:
 /// ---------------------------------------------
 
 ///Class Line -----------------------------------
-//Rectangle isometric primitive
+//Line isometric primitive
 class Line : public Primitive
 {
 public:
 
-	Line(const iPoint& position , const iPoint& position_2, const SDL_Color& color , const iPoint& displacement = { 0,0 });
+	Line(const iPoint& position, const iPoint& position_2, const SDL_Color& color, const iPoint& displacement = { 0,0 });
 	Line(const Rectng& copy);
 	~Line();
 

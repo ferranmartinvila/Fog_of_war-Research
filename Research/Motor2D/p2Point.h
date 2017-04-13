@@ -75,6 +75,20 @@ public:
 		return(*this);
 	}
 
+	const p2Point& operator *=(const int num)
+	{
+		x *= num;
+		y *= num;
+
+		return(*this);
+	}
+	const p2Point& operator/=(const int num)
+	{
+		x /= num;
+		y /= num;
+		return(*this);
+
+	}
 	bool operator ==(const p2Point& v) const
 	{
 		return (x == v.x && y == v.y);
@@ -130,6 +144,11 @@ public:
 		return sqrtf((fx*fx) + (fy*fy));
 	}
 
+	TYPE DirectionalDistanceTo(const p2Point& v, const p2Point& dir)
+	{
+
+	}
+
 	TYPE DistanceNoSqrt(const p2Point& v) const
 	{
 		TYPE fx = x - v.x;
@@ -139,19 +158,35 @@ public:
 	}
 	TYPE DistanceOctile(const p2Point& v) const
 	{
-			int xDistance = abs(x - v.x);
-			int yDistance = abs(y - v.y);
-			if (xDistance > yDistance)
-				return 14 * yDistance + 10 * (xDistance - yDistance);
-			else
-				return 14 * xDistance + 10 * (yDistance - xDistance);
+		int xDistance = abs(x - v.x);
+		int yDistance = abs(y - v.y);
+		if (xDistance > yDistance)
+			return 14 * yDistance + 10 * (xDistance - yDistance);
+		else
+			return 14 * xDistance + 10 * (yDistance - xDistance);
 
 	}
-	
+
 	TYPE DistanceManhattan(const p2Point& v) const
 	{
 		return abs(v.x - x) + abs(v.y - y);
 	}
+
+	// Maths ----------------------------------------------
+	p2Point Round()const
+	{
+		p2Point point(this->x, this->y);
+		point.x = (point.x > (floor(point.x) + 0.5f)) ? ceil(point.x) : floor(point.x);
+		point.y = (point.y > (floor(point.y) + 0.5f)) ? ceil(point.y) : floor(point.y);
+		return point;
+	}
+	void Norm()
+	{
+		float len = sqrt(x*x + y*y);
+		x /= len;
+		y /= len;
+	}
+
 };
 
 typedef p2Point<int> iPoint;

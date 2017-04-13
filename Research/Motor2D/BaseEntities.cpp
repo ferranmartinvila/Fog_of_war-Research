@@ -9,6 +9,52 @@
 #include "p2Log.h"
 #include "j1EntitiesManager.h"
 
+///Class MyEntity -------------------------------
+//Constructors ========================
+MyEntity::MyEntity()
+{
+
+}
+
+//Destructors =========================
+MyEntity::~MyEntity()
+{
+
+}
+
+//Game Loop Methods ===================
+void MyEntity::Draw()
+{
+
+}
+
+//Set Methods =========================
+void MyEntity::SetPosition(float x, float y)
+{
+	//Extract the units to push it with the new position later
+	App->entities_manager->entities_quadtree.Exteract(this, &position);
+
+	//Set unit position
+	position.x = x;
+	position.y = y;
+
+	//Set unit vision position
+	vision_area.SetPosition(iPoint(position.x, position.y));
+
+	//Add the unit with the correct position in the correct quad tree
+	App->entities_manager->entities_quadtree.Insert(this, &position);
+}
+
+void MyEntity::SetVisionRange(uint range)
+{
+	vision_area.SetRad(range);
+}
+
+fPoint MyEntity::GetPosition() const
+{
+	return position;
+}
+
 ///Class Entity ---------------------------------
 //Constructors ========================
 Entity::Entity() :name("")
@@ -16,7 +62,7 @@ Entity::Entity() :name("")
 
 }
 
-Entity::Entity(const Entity& copy) : name(copy.name), position(copy.position), entity_type(copy.entity_type), entity_diplomacy(copy.entity_diplomacy), selection_rect(copy.selection_rect),
+Entity::Entity(const Entity& copy) : name(copy.name), position(copy.position), entity_type(copy.entity_type), selection_rect(copy.selection_rect),
 icon_rect(copy.icon_rect), max_life(copy.max_life), life(copy.life), current_animation(copy.current_animation)
 {
 
@@ -75,11 +121,6 @@ void Entity::SetEntityType(ENTITY_TYPE type)
 	entity_type = type;
 }
 
-void Entity::SetDiplomacy(DIPLOMACY new_diplomacy)
-{
-	entity_diplomacy = new_diplomacy;
-}
-
 void Entity::SetMaxLife(uint full_life_val)
 {
 	max_life = full_life_val;
@@ -130,11 +171,6 @@ iPoint Entity::GetPositionRounded() const
 ENTITY_TYPE Entity::GetEntityType() const
 {
 	return entity_type;
-}
-
-DIPLOMACY Entity::GetDiplomacy() const
-{
-	return entity_diplomacy;
 }
 
 uint Entity::GetMaxLife() const
@@ -310,7 +346,7 @@ bool Unit::Move()
 
 bool Unit::Interact()
 {
-	//Calculate the distance between the unit and the resource 
+	/*//Calculate the distance between the unit and the resource 
 	double distance = sqrt(abs(interaction_target->GetPositionRounded().DistanceNoSqrt(iPoint(position.x, position.y))));
 	//Check if the resource is in the action area of the villager
 	if (view_area < distance)
@@ -324,7 +360,7 @@ bool Unit::Interact()
 	{
 	case UNIT:			if(action_timer.Read() > attack_rate)Attack();		break;
 	case BUILDING:		Cover();											break;
-	}
+	}*/
 	return true;
 }
 
@@ -378,11 +414,6 @@ bool Unit::Attack()
 	//Reset action timer
 	action_timer.Start();
 	return false;
-}
-
-bool Unit::Cover()
-{
-	return ((Building*)interaction_target)->CoverUnit(this);;
 }
 
 //Bonus -----------
@@ -812,50 +843,6 @@ Building::~Building()
 }
 
 //Functionality =======================
-//Units Generator -----------
-Unit * Building::CraftUnit(UNIT_TYPE new_unit_type) const
-{
-	//Call entities manager to generate a new unit
-	Unit* new_unit = App->entities_manager->GenerateUnit(new_unit_type, false);
-	//Set the new unit position at the buiding spawn point
-	new_unit->SetPosition(position.x + (float)units_spawn_point.x, position.y + (float)units_spawn_point.y);
-
-	//Add the unit in the crafting units priority queue
-	//production_queue.emplace(new_unit);
-
-	
-	return new_unit;
-}
-
-bool Building::CoverUnit(const Unit * target)
-{
-	if (units_capacity == current_units)
-	{
-		LOG("Building is full!");
-		return false;
-	}
-
-	units_in.push_back(App->entities_manager->PopUnit(target));
-
-	return true;
-}
-
-void Building::ReleaseUnit(const Unit * target)
-{
-	units_in.remove((Unit*)target);
-	App->entities_manager->AddUnit(target);
-}
-
-void Building::ReleaseAllUnits()
-{
-	uint size = units_in.size();
-	for (uint k = 0; k < size; k++)
-	{
-		if (units_in.back()->GetUnitType() == VILLAGER)units_in.back()->Interact();
-		App->entities_manager->AddUnit(units_in.back());
-		units_in.pop_back();
-	}
-}
 
 //Draw ----------------------
 bool Building::Draw(bool debug)
@@ -996,3 +983,5 @@ uint Building::GetCurrentUnits() const
 	return current_units;
 }
 ///----------------------------------------------
+
+

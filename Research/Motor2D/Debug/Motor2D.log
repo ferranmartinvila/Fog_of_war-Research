@@ -6,9 +6,104 @@ c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1gui.h(10): warning
   c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1module.h(10): note: see declaration of 'UI_Element'
 c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.h(52): warning C4099: 'Animation': type name first seen using 'struct' now seen using 'class'
   c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.h(51): note: see declaration of 'Animation'
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1scene.cpp(122): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1scene.cpp(127): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1scene.cpp(131): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1scene.cpp(134): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1scene.cpp(114): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1scene.cpp(119): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1scene.cpp(123): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1scene.cpp(126): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+  j1Player.cpp
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\brofiler\brofiler.h(275): warning C4005: 'BROFILER_FRAME': macro redefinition
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.h(10): note: see previous definition of 'BROFILER_FRAME'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1gui.h(10): warning C4099: 'UI_Element': type name first seen using 'class' now seen using 'struct'
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1module.h(10): note: see declaration of 'UI_Element'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.h(47): warning C4099: 'Animation': type name first seen using 'class' now seen using 'struct'
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.h(52): note: see declaration of 'Animation'
+  j1EntitiesManager.cpp
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\brofiler\brofiler.h(275): warning C4005: 'BROFILER_FRAME': macro redefinition
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.h(10): note: see previous definition of 'BROFILER_FRAME'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.h(52): warning C4099: 'Animation': type name first seen using 'struct' now seen using 'class'
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.h(51): note: see declaration of 'Animation'
+  j1App.cpp
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1gui.h(10): warning C4099: 'UI_Element': type name first seen using 'class' now seen using 'struct'
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1module.h(10): note: see declaration of 'UI_Element'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.h(47): warning C4099: 'Animation': type name first seen using 'class' now seen using 'struct'
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.h(52): note: see declaration of 'Animation'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\brofiler\brofiler.h(275): warning C4005: 'BROFILER_FRAME': macro redefinition
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.h(10): note: see previous definition of 'BROFILER_FRAME'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.cpp(292): warning C4018: '<': signed/unsigned mismatch
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.cpp(288): warning C4477: 'sprintf_s' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 6 has type 'uint64'
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.cpp(288): note: consider using '%llu' in the format string
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.cpp(288): note: consider using '%I64u' in the format string
+  j1Animator.cpp
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\brofiler\brofiler.h(275): warning C4005: 'BROFILER_FRAME': macro redefinition
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.h(10): note: see previous definition of 'BROFILER_FRAME'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.h(47): warning C4099: 'Animation': type name first seen using 'class' now seen using 'struct'
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.h(52): note: see declaration of 'Animation'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.cpp(636): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.cpp(708): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.cpp(831): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  BaseEntities.cpp
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\brofiler\brofiler.h(275): warning C4005: 'BROFILER_FRAME': macro redefinition
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.h(10): note: see previous definition of 'BROFILER_FRAME'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.h(52): warning C4099: 'Animation': type name first seen using 'struct' now seen using 'class'
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1animator.h(51): note: see declaration of 'Animation'
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(42): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(131): warning C4244: '=': conversion from 'uint' to 'float', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(168): warning C4244: 'argument': conversion from 'const float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(183): warning C4244: 'return': conversion from 'const float' to 'uint', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(263): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(276): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(276): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(301): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(305): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(342): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(370): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(434): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(732): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(744): warning C4244: '=': conversion from 'float' to 'uint', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(770): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(772): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(773): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(776): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(880): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(890): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(892): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(896): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\p2point.h(144): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\p2point.h(140): note: while compiling class template member function 'int p2Point<int>::DistanceTo(const p2Point<int> &) const'
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(335): note: see reference to function template instantiation 'int p2Point<int>::DistanceTo(const p2Point<int> &) const' being compiled
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\iso_primitives.h(35): note: see reference to class template instantiation 'p2Point<int>' being compiled
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\p2point.h(144): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\quadtree.h(316): warning C4838: conversion from 'const float' to 'int' requires a narrowing conversion
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\quadtree.h(314): note: while compiling class template member function 'bool m_AABB<DATA_TYPE>::Insert(DATA_TYPE,const fPoint *)'
+          with
+          [
+              DATA_TYPE=MyEntity *
+          ]
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\quadtree.h(752): note: see reference to function template instantiation 'bool m_AABB<DATA_TYPE>::Insert(DATA_TYPE,const fPoint *)' being compiled
+          with
+          [
+              DATA_TYPE=MyEntity *
+          ]
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\quadtree.h(770): note: see reference to class template instantiation 'm_AABB<DATA_TYPE>' being compiled
+          with
+          [
+              DATA_TYPE=MyEntity *
+          ]
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\quadtree.h(767): note: while compiling class template member function 'bool m_QuadTree<MyEntity *>::Exteract(const DATA_TYPE,const fPoint *)'
+          with
+          [
+              DATA_TYPE=MyEntity *
+          ]
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\baseentities.cpp(35): note: see reference to function template instantiation 'bool m_QuadTree<MyEntity *>::Exteract(const DATA_TYPE,const fPoint *)' being compiled
+          with
+          [
+              DATA_TYPE=MyEntity *
+          ]
+  c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1entitiesmanager.h(44): note: see reference to class template instantiation 'm_QuadTree<MyEntity *>' being compiled
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\quadtree.h(316): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
+  Generating Code...
+     Creating library C:\Users\ferra\Desktop\Fog_of_war-Research\Research\Debug\Fog of War.lib and object C:\Users\ferra\Desktop\Fog_of_war-Research\Research\Debug\Fog of War.exp
+physfs.lib(physfs.obj) : warning LNK4217: locally defined symbol _sprintf imported in function _PHYSFS_setSaneConfig
   Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Research\Debug\Fog of War.exe
   Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Research\Debug\Fog of War.pdb (Full PDB)
