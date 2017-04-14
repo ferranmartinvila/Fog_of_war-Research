@@ -20,8 +20,30 @@ j1FogOfWar::~j1FogOfWar()
 //Game Loop ===========================
 bool j1FogOfWar::Start()
 {
-	//Calculate fog size with the map data
-	uint size = App->map->data.width * App->map->data.height;
+	//Calculate fog alpha layer size with the map data & the divisions per tile
+	uint size = App->map->data.width * App->map->data.height * DIVISIONS_PER_TILE;
+	alpha_layer_width = App->map->data.width * DIVISIONS_PER_TILE;
+	alpha_layer_height = App->map->data.height * DIVISIONS_PER_TILE;
+
+	//Build fog alpha layer
+	//Allocate alpha layer cells
+	alpha_layer = new AlphaCell[alpha_layer_width * alpha_layer_height];
+
+	//Set cells position
+	uint divided_tile_width = ceil(App->map->data.tile_width / DIVISIONS_PER_TILE);
+	uint divided_tile_height = ceil((App->map->data.tile_height + MARGIN) / DIVISIONS_PER_TILE);
+	int mid_map_lenght = (App->map->data.width * App->map->data.tile_width) * -0.5;
+	for (uint y = 0; y < alpha_layer_height; y++)
+	{
+		for (uint x = 0; x < alpha_layer_width; x++)
+		{
+			alpha_layer[y * alpha_layer_width + x].position = { mid_map_lenght + (int)divided_tile_width * (int)x, (int)divided_tile_height * (int)y };
+		}
+	}
+	
+
+	//Initialize alpha layer with the max alpha value
+
 
 	//Allocate an array of booleans with the size of the map
 	fog_layer.reserve(size);

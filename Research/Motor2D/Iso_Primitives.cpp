@@ -166,7 +166,7 @@ uint Circle::GetRad() const
 }
 /// ---------------------------------------------
 
-///Class Rectngle ------------------------------
+///Class Rectngle -------------------------------
 //Constructors ==============
 Rectngle::Rectngle(const iPoint & position, uint width, uint height) :rect({ position.x, position.y, (int)width, (int)height })
 {
@@ -210,4 +210,18 @@ SDL_Rect Rectngle::GetRect() const
 SDL_Color Rectngle::GetColor() const
 {
 	return color;
+}
+/// ---------------------------------------------
+
+/// Class Alpha Cell ----------------------------
+//Constructors ==============
+AlphaCell::AlphaCell(const iPoint& position, unsigned short alpha) :position(position), alpha(alpha)
+{
+
+}
+
+//Destructors ===============
+AlphaCell::~AlphaCell()
+{
+
 }

@@ -4,6 +4,9 @@
 #include "j1Module.h"
 #include "Iso_Primitives.h"
 
+#define ALPHA_LIMIT 255
+#define	DIVISIONS_PER_TILE 4
+
 enum FOG_TYPE
 {
 	NO_FOG = 0,
@@ -31,6 +34,10 @@ private:
 	/*Fog Surface*/					SDL_Surface* fog_surface = nullptr;
 	/*Stamp to erase fog surface*/	SDL_Surface* fog_eraser = nullptr;
 	SDL_Texture* eraser = nullptr;
+
+	AlphaCell* alpha_layer = nullptr;
+	uint alpha_layer_width = 0;
+	uint alpha_layer_height = 0;
 
 public:
 

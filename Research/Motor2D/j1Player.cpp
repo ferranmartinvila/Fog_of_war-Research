@@ -48,10 +48,10 @@ bool j1Player::Update(float dt)
 {
 	//Test unit animations --------------
 	fPoint pos = player->GetPosition();
-	float speed = 500;
+	float speed = 600;
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
-		player->SetPosition(pos.x, ceil(pos.y + -speed * dt));
+		player->SetPosition(pos.x, pos.y + -speed * dt);
 		pos = player->GetPosition();
 	}
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
@@ -61,7 +61,7 @@ bool j1Player::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		player->SetPosition(ceil(pos.x + -speed * dt), pos.y);
+		player->SetPosition(pos.x + -speed * dt, pos.y);
 		pos = player->GetPosition();
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)

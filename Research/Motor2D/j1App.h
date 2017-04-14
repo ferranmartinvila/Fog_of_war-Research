@@ -6,11 +6,6 @@
 #include "PugiXml\src\pugixml.hpp"
 #include <list>
 
-//Brofiler Tool
-#define BROFILER_FRAME
-#include "Brofiler/Brofiler.h"
-#pragma comment( lib, "Brofiler/ProfilerCore32.lib" )
-
 // Modules
 class j1Window;
 class j1Input;
@@ -23,6 +18,7 @@ class j1Map;
 class j1Module;
 class j1EntitiesManager;
 class j1Player;
+class j1FogOfWar;
 
 class j1App
 {
@@ -96,6 +92,7 @@ public:
 	j1Map*				map = NULL;
 	j1EntitiesManager*	entities_manager = NULL;
 	j1Player*			player = NULL;
+	j1FogOfWar*			fog_of_war = NULL;
 
 	// Add a new module to handle
 	void		AddModule(j1Module* module);
