@@ -79,18 +79,12 @@
   <ItemGroup>
     <ClCompile Include="BaseEntities.cpp" />
     <ClCompile Include="Iso_Primitives.cpp" />
-    <ClCompile Include="j1Animator.cpp" />
-    <ClCompile Include="ClusterAbstraction.cpp" />
-    <ClCompile Include="j1Console.cpp" />
     <ClCompile Include="j1EntitiesManager.cpp" />
     <ClCompile Include="j1FileSystem.cpp" />
-    <ClCompile Include="j1Fonts.cpp" />
-    <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Map.cpp" />
-    <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Scene.cpp" />
@@ -100,28 +94,12 @@
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
-    <ClCompile Include="UI_Button.cpp" />
-    <ClCompile Include="UI_Element.cpp" />
-    <ClCompile Include="UI_Fixed_Button.cpp" />
-    <ClCompile Include="UI_Image.cpp" />
-    <ClCompile Include="UI_Popup_Menu.cpp" />
-    <ClCompile Include="UI_Scroll.cpp" />
-    <ClCompile Include="UI_String.cpp" />
-    <ClCompile Include="UI_Text_Box.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Iso_Primitives.h" />
-    <ClInclude Include="ClusterAbstraction.h" />
-    <ClInclude Include="Command.h" />
-    <ClInclude Include="C_var.h" />
     <ClInclude Include="BaseEntities.h" />
-    <ClInclude Include="j1Animator.h" />
-    <ClInclude Include="j1Console.h" />
     <ClInclude Include="j1FileSystem.h" />
-    <ClInclude Include="j1Fonts.h" />
-    <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1Map.h" />
-    <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Scene.h" />
@@ -139,14 +117,6 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="Quadtree.h" />
-    <ClInclude Include="UI_Button.h" />
-    <ClInclude Include="UI_Element.h" />
-    <ClInclude Include="UI_Fixed_Button.h" />
-    <ClInclude Include="UI_Image.h" />
-    <ClInclude Include="UI_Popup_Menu.h" />
-    <ClInclude Include="UI_Scroll.h" />
-    <ClInclude Include="UI_String.h" />
-    <ClInclude Include="UI_Text_Box.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -6,19 +6,8 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Window.h"
-#include "j1Gui.h"
 #include "j1Map.h"
-#include "j1Console.h"
 #include "j1EntitiesManager.h"
-#include "j1Animator.h"
-#include "j1Pathfinding.h"
-//UI Elements
-#include "UI_Text_Box.h"
-#include "UI_Button.h"
-#include "UI_String.h"
-#include "UI_Scroll.h"
-#include "UI_Popup_Menu.h"
-
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -35,7 +24,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	for (pugi::xml_node map_tmx = config.child("map_folder"); map_tmx; map_tmx = map_tmx.next_sibling("map_folder")) {
 
-		map_folder.push_back(std::string(map_tmx.child_value()));
+		map_folder = (map_tmx.child_value());
 
 	}
 
@@ -47,25 +36,13 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	//Map build -------------------------------------------
-	Load_Current_Map();
+	Load_Map();
 	// ----------------------------------------------------
 
 
 	// Entities Build -------------------------------------
 	player = App->entities_manager->GenerateUnit(); 
 	player->SetPosition(350, 280);
-	// ----------------------------------------------------
-
-
-	//UI Scene build --------------------------------------
-	App->gui->SetDefaultInputTarget(this);
-
-	scene_1_screen = App->gui->GenerateUI_Element(UNDEFINED);
-	scene_1_screen->SetBox({ 0,0,App->win->screen_surface->w, App->win->screen_surface->h });
-	scene_1_screen->Activate();
-	scene_1_screen->SetInputTarget(this);
-
-	App->gui->PushScreen(scene_1_screen);
 	// ----------------------------------------------------
 	
 	return true;
@@ -80,34 +57,6 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	// Gui Upper Element ---------------------------
-	
-
-	App->gui->CalculateUpperElement(scene_1_screen);
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-	{
-		uint width = 0;
-		uint height = 0;
-		uchar* logic_map = nullptr;
-		j1Timer ptimer;
-		App->map->CreateWalkabilityMap(width, height, &logic_map);
-		App->pathfinding->SetMap(width, height, logic_map);
-		//App->pathfinding->InitClusterAbstraction();
-		LOG("TIME %f", ptimer.ReadSec());
-	}
-	
-	/*
-	if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
-	{
-		j1Timer ptimer;
-		YOLO->CreateBFS(YOLO->graph.GetNode(4), YOLO->graph.GetNode(200));
-		for (int i = 0; i < YOLO->best_path.size(); i++) {
-			LOG("node pass by %i", YOLO->best_path[i]->nodeNum);
-		}
-		LOG("TIME %f", ptimer.ReadSec());
-
-	}
-	*/
 	//MAP MOVEMENT-----------------------------------------
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
@@ -179,8 +128,6 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 	
-	scene_1_screen->Draw(false);
-
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
 		ret = false;
@@ -197,52 +144,8 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-void j1Scene::GUI_Input(UI_Element* target, GUI_INPUT input)
+bool j1Scene::Load_Map()
 {
-	int x, y;
-	App->input->GetMouseMotion(x, y);
-	switch (input)
-	{
-	case UP_ARROW:
-		break;
-	case DOWN_ARROW:
-		break;
-	case LEFT_ARROW:
-		break;
-	case RIGHT_ARROW:
-		break;
-	case MOUSE_LEFT_BUTTON_DOWN:
-		break;
-	case MOUSE_LEFT_BUTTON_REPEAT:
-		break;
-	case MOUSE_LEFT_BUTTON_UP:
-		break;
-	case MOUSE_RIGHT_BUTTON:
-		break;
-	case BACKSPACE:
-		break;
-	case SUPR:
-		break;
-	case MOUSE_IN:
-		break;
-	case MOUSE_OUT:
-		break;
-	case ENTER:
-		break;
-	}
-}
-
-void j1Scene::Change_Map()
-{
-	if (current_map < map_folder.size() - 1)current_map++;
-	else current_map = 0;
-}
-
-bool j1Scene::Load_Current_Map()
-{
-	bool ret = false;
-
-	ret = App->map->Load(map_folder.at(current_map).c_str());
-
-	return ret;
+	return App->map->Load(map_folder.c_str());
+	return false;
 }

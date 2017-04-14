@@ -4,16 +4,12 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Input.h"
-#include "j1Animator.h"
 
 #include "j1App.h"
 #include "j1Window.h"
-#include "j1Gui.h"
 #include "j1EntitiesManager.h"
 
-#include "UI_Element.h"
-#include "UI_Image.h"
-#include "UI_String.h"
+
 
 
 //j1Player Constructor ============================================================

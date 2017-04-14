@@ -23,36 +23,22 @@ public:
 	// Called each loop iteration
 	bool Update(float dt);
 
+	// Called each loop iteration
+	bool PostUpdate();
+
 	//Draw entities
 	bool Draw()const;
 
 	// Called before quitting
 	bool CleanUp();
 
-	//Handle Console Input ----------------------
-	void Console_Command_Input(Command* command, Cvar* cvar, std::string* input);
-	void Console_Cvar_Input(Cvar* cvar, Command* command_type, std::string* input);
-
 public:
-
-	//Lists of current game entities
-	std::list<Unit*>		units;
-	std::list<Resource*>	resources;
-	std::list<Building*>	buildings;
 
 	std::list<MyEntity*>	entities_list;
 	m_QuadTree<MyEntity*>	entities_quadtree;
 
 	//Vector where all the killed/destroyed entities are placed
-	std::vector<Entity*>	wasted_units;
-
-	//Vector of predefined units
-	std::vector<Unit*>		units_defs;
-	std::vector<Resource*>	resources_defs;
-	std::vector<Building*>	buildings_defs;
-
-	// Cvar that defines the console unit generator unit type
-	Cvar* unit_cvar;
+	std::vector<MyEntity*>	wasted_entities;
 
 public:
 
@@ -61,7 +47,7 @@ public:
 	MyEntity*	GenerateUnit();
 
 	//Delete Methods --------
-	bool		DeleteEntity(Entity* entity);
+	bool		DeleteEntity(MyEntity* entity);
 
 };
 #endif // _ENTITIES_MANAGER_

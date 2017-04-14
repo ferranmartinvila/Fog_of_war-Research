@@ -35,30 +35,17 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Receive UI input and work with it
-	void GUI_Input(UI_Element* target, GUI_INPUT input);
-
 private:
 
-	//Scene	UI
-	UI_Element* scene_1_screen;
+	MyEntity*	player = nullptr;
 
 public:
 
 	//Map Folders
-	std::vector <std::string> map_folder;
-
-	uint current_map = 0;
-
-
-	//Troops for testing
-	MyEntity*	player = nullptr;
-
-	//Change the current map
-	void Change_Map();
+	std::string map_folder;
 
 	//Load the selected Map
-	bool Load_Current_Map();
+	bool Load_Map();
 
 };
 
