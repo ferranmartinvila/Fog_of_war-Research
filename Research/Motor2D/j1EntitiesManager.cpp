@@ -40,6 +40,13 @@ bool j1EntitiesManager::Start()
 
 bool j1EntitiesManager::Update(float dt)
 {
+	std::list<MyEntity*>::const_iterator entity = entities_list.begin();
+	while (entity != entities_list.end())
+	{
+		entity._Ptr->_Myval->Draw();
+
+		entity++;
+	}
 
 	return true;
 }
@@ -54,11 +61,6 @@ bool j1EntitiesManager::PostUpdate()
 	}
 	wasted_entities.clear();
 	
-	return true;
-}
-
-bool j1EntitiesManager::Draw() const
-{
 	return true;
 }
 

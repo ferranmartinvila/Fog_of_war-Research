@@ -34,18 +34,40 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 bool j1Player::Start()
 {
-
+	//Player entity build -----------------------
+	player = App->entities_manager->GenerateUnit();
+	player->SetPosition(350, 280);
+	player->SetSpriteColor({ 255,255,25,255 });
+	player->SetSpriteRect({ 350, 280,50,150 });
+	player->SetType(ALLY);
+	// ------------------------------------------
 	return true;
 }
 
-bool j1Player::PreUpdate()
+bool j1Player::Update(float dt)
 {
-
-	return true;
-}
-
-bool j1Player::PostUpdate()
-{
+	//Test unit animations --------------
+	fPoint pos = player->GetPosition();
+	float speed = 500;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		player->SetPosition(pos.x, pos.y + -speed * dt);
+		pos = player->GetPosition();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	{
+		player->SetPosition(pos.x, pos.y + speed * dt);
+		pos = player->GetPosition();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		player->SetPosition(pos.x + -speed * dt, pos.y);
+		pos = player->GetPosition();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		player->SetPosition(pos.x + speed * dt, pos.y);
+	}
 
 	return true;
 }

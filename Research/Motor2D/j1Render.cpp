@@ -11,7 +11,7 @@ Blit_Call::Blit_Call()
 
 }
 
-Blit_Call::Blit_Call(const iPoint & position, const iPoint& pivot, SDL_Texture* texture, SDL_Rect* rect, bool flip, int priority, uint opacity) :position(position),pivot(pivot), texture(texture), rect(rect), flip(flip), priority(priority), opacity(opacity)
+Blit_Call::Blit_Call(const SDL_Rect& rect, const iPoint& pivot, const SDL_Color& color, int priority) :rect(rect), pivot(pivot), color(color), priority(priority)
 {
 
 }
@@ -22,44 +22,19 @@ Blit_Call::~Blit_Call()
 
 }
 
-int Blit_Call::GetX() const
+iPoint Blit_Call::GetPivot() const
 {
-	return position.x;
+	return pivot;
 }
 
-int Blit_Call::GetY() const
-{
-	return position.y;
-}
-
-int Blit_Call::GetXPivot() const
-{
-	return pivot.x;
-}
-
-int Blit_Call::GetYPivot() const
-{
-	return pivot.y;
-}
-
-SDL_Texture * Blit_Call::GetTex() const
-{
-	return texture;
-}
-
-const SDL_Rect* Blit_Call::GetRect() const
+SDL_Rect Blit_Call::GetRect() const
 {
 	return rect;
 }
 
-bool Blit_Call::GetFlip() const
+SDL_Color Blit_Call::GetColor() const 
 {
-	return flip;
-}
-
-uint Blit_Call::GetOpacity() const
-{
-	return opacity;
+	return color;
 }
 
 bool Blit_Call::operator<(const Blit_Call & target) const
@@ -143,7 +118,7 @@ bool j1Render::Update(float dt)
 	for (uint k = 0; k < size; k++)
 	{
 		const Blit_Call* blit = &blit_queue.top();
-		Blit(blit->GetTex(), blit->GetX(), blit->GetY(), blit->GetRect(), blit->GetFlip(),blit->GetOpacity(), blit->GetXPivot(), blit->GetYPivot());
+		Blit(&blit->GetRect(),blit->GetPivot(),&blit->GetColor());
 		blit_queue.pop();
 	}
 	return true;
@@ -200,11 +175,10 @@ void j1Render::ChangeVSYNCstate(bool state)
 	renderer = SDL_CreateRenderer(App->win->window, -1, renderer_flag);
 }
 
-bool j1Render::CallBlit(SDL_Texture * texture, int x, int y, const SDL_Rect* section, bool horizontal_flip, int priority, uint opacity, int pivot_x, int pivot_y, float speed, double angle)
+bool j1Render::CallBlit(const SDL_Rect rect, const iPoint pivot, const SDL_Color color, int priority)
 {
 	bool ret = false;
-	if (texture != nullptr)ret = true;
-	blit_queue.emplace(iPoint(x, y), iPoint(pivot_x, pivot_y) , texture, (SDL_Rect*)section, horizontal_flip, priority, opacity);
+	blit_queue.emplace(rect, pivot, color, priority);
 	return true;
 }
 
@@ -229,66 +203,31 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
-// Blit to screen
-bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool horizontal_flip, uint opacity, int pivot_x, int pivot_y, float speed, double angle) const
+bool j1Render::Blit(const SDL_Rect * rect, const iPoint pivot, const SDL_Color * color) const
 {
-	bool ret = true;
+	if (rect == nullptr || color == nullptr)return false;
+
+	SDL_Rect rect_to_blit = { rect->x + pivot.x,rect->y + pivot.y, rect->w,rect->h };
+	App->render->DrawQuad(rect_to_blit, color->r, color->g, color->b, color->a);
+
+	return true;
+}
+
+bool j1Render::TileBlit(SDL_Texture * texture, int x, int y, const SDL_Rect * section)
+{
 	uint scale = App->win->GetScale();
 
-	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	SDL_Rect rect = { camera.x + x * scale ,camera.y + y * scale ,section->w * scale ,section->h * scale };
 
-	if(section != NULL)
-	{
-		rect.w = section->w;
-		rect.h = section->h;
-	}
-	else
-	{
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-	}
+	SDL_Point p = { 0,0 };
 
-	if (!horizontal_flip)
-	{
-		rect.x -= pivot_x;
-		rect.y -= pivot_y;
-	}
-	else
-	{
-		rect.x -= (rect.w-pivot_x);
-		rect.y -= pivot_y;
-	}
-
-	rect.w *= scale;
-	rect.h *= scale;
-
-	SDL_Point* p = NULL;
-	SDL_Point pivot;
-
-	if(pivot_x != 0 && pivot_y != 0)
-	{
-		pivot.x = pivot_x;
-		pivot.y = pivot_y;
-		p = &pivot;
-	}
-	int op_check = 2;
-	if (opacity != 255)
-	{
-		op_check = SDL_SetTextureAlphaMod(texture, opacity);
-	}
-
-	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, (SDL_RendererFlip)horizontal_flip))
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, 0, &p, SDL_RendererFlip::SDL_FLIP_NONE))
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		ret = false;
+		return false;
 	}
 
-	if (op_check != 2)
-	{
-		op_check = SDL_SetTextureAlphaMod(texture,255);
-	}
-	return ret;
+	return true;
 }
 
 bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera) const

@@ -38,12 +38,6 @@ bool j1Scene::Start()
 	//Map build -------------------------------------------
 	Load_Map();
 	// ----------------------------------------------------
-
-
-	// Entities Build -------------------------------------
-	player = App->entities_manager->GenerateUnit(); 
-	player->SetPosition(350, 280);
-	// ----------------------------------------------------
 	
 	return true;
 }
@@ -77,52 +71,9 @@ bool j1Scene::Update(float dt)
 	{
 		App->render->camera.x -= SDL_ceil(500 * dt);
 	}
-
-
-
-	//Test unit animations --------------
-	fPoint pos = player->GetPosition();
-	float speed = 95;
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	{
-
-	}
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-	{
-
-	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-
-	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-
-	}
-
-
-	///Movement
-	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
-	{
-		player->SetPosition(pos.x, pos.y + -speed * dt);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
-	{
-		player->SetPosition(pos.x, pos.y + speed * dt);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
-	{
-		player->SetPosition(pos.x + speed * dt, pos.y );
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
-	{
-		player->SetPosition(pos.x + -speed * dt, pos.y);
-	}
-
 	// ------------------------------------------
 
 	App->map->Draw(App->debug_mode);
-	App->entities_manager->Draw();
 
 	return true;
 }

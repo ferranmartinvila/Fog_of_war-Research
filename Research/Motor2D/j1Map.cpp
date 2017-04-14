@@ -51,7 +51,7 @@ void j1Map::Draw(bool debug)
 		iPoint map_point = MapToWorld(tiles_in_view[k].x, tiles_in_view[k].y);
 
 		//Blit the current tile
-		App->render->Blit(tileset->texture, map_point.x, map_point.y, &r);
+		App->render->TileBlit(tileset->texture, map_point.x, map_point.y, &r);
 
 	}
 

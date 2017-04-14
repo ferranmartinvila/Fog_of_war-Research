@@ -22,15 +22,20 @@ public:
 
 private:
 
-	fPoint	position = { 0,0 };
-	Circle	vision_area;
-
+	Rectngle	sprite;
+	ENTITY_TY	type = NO_TY;
+	fPoint		position = { 0,0 };
+	Circle		vision_area;
+	
 public:
 
 	//Game Loop Methods ---------------
 	void	Draw();
 
 	//Set Methods ---------------------
+	void	SetSpriteRect(const SDL_Rect& rect);
+	void	SetSpriteColor(const SDL_Color& color);
+	void	SetType(ENTITY_TY new_type);
 	void	SetPosition(float x, float y);
 	void	SetVisionRange(uint range);
 

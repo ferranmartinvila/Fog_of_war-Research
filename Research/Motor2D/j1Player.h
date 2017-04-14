@@ -6,15 +6,7 @@
 #include "p2Point.h"
 #include "SDL\include\SDL_rect.h"
 
-struct SDL_Texture;
-
-
-class Entity;
-class Unit;
-class Resource;
-class Building;
-class UI_String;
-class UI_Image;
+class MyEntity;
 
 //Animator Module -------------------------------
 class j1Player : public j1Module
@@ -26,7 +18,7 @@ public:
 
 public:
 
-	void Init() { active = false; }
+	void Init() { active = true; }
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
@@ -34,17 +26,15 @@ public:
 	// Called before the first frame
 	bool Start();
 
-	// Called before all Updates
-	bool PreUpdate();
-
 	// Called each loop iteration
-	bool PostUpdate();
+	bool Update(float dt);
 
 	// Called before quitting
 	bool CleanUp();
 
 private:
 
+	MyEntity* player = nullptr;
 	
 
 public:

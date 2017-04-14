@@ -5,20 +5,6 @@
 #include "p2Point.h"
 #include"SDL_image/include/SDL_image.h"
 
-class Rectng;
-
-enum COLLIDER_TYPE
-{
-	COLLIDER_NO_UI,
-	COLLIDER_NO_BASE,
-	COLLIDER_UNIT_UI,
-	COLLIDER_UNIT_BASE,
-	COLLIDER_BUILDING_UI,
-	COLLIDER_BUILDING_BASE,
-	COLLIDER_RESOURCE_UI,
-	COLLIDER_RESOURCE_BASE
-};
-
 ///Class Primitive ------------------------------
 //Base primitive class
 class Primitive
@@ -79,10 +65,8 @@ public:
 	bool	IsIn(const fPoint* loc) const;
 	bool	Intersects(const SDL_Rect* rect) const;
 	bool	Intersects(const Circle* target)const;
-	bool	Intersects(const Rectng* target)const;
 	bool	Intersects(const iPoint* point)const;
 	iPoint  NearestPoint(const Circle* target)const;
-	iPoint	NearestPoint(const Rectng* target)const;
 
 	//Set Methods
 	void	SetRad(uint r);
@@ -91,61 +75,31 @@ public:
 };
 /// ---------------------------------------------
 
-
-///Class Rectangle ------------------------------
-//Rectangle isometric primitive
-class Rectng : public Primitive
+///Class Rectngle ------------------------------
+class Rectngle
 {
 public:
 
-	Rectng(const iPoint& position = { 0,0 }, uint width = 0, uint height = 0, const iPoint& displacement = { 0,0 });
-	Rectng(const Rectng& copy);
-	~Rectng();
+	Rectngle(const iPoint& position = { 0,0 }, uint width = 0, uint height = 0);
+	~Rectngle();
 
 private:
 
-	uint width = 0;
-	uint height = 0;
+	SDL_Rect	rect = { 0,0,0,0 };
+	SDL_Color	color = { 0,0,0,0 };
 
 public:
 
 	//Functionality ---------
-	//Draw
-	bool	Draw();
-	//Set Methods
-	void	SetWidth(uint w);
-	void	SetHeight(uint h);
-	//Get Methods
-	uint	GetWidth()const;
-	uint	GetHeight()const;
-};
-/// ---------------------------------------------
+	bool Draw();
 
-///Class Line -----------------------------------
-//Line isometric primitive
-class Line : public Primitive
-{
-public:
+	void	SetPosition(int x, int y);
+	void	SetRect(const SDL_Rect& new_rect);
+	void	SetColor(const SDL_Color& new_color);
 
-	Line(const iPoint& position, const iPoint& position_2, const SDL_Color& color, const iPoint& displacement = { 0,0 });
-	Line(const Rectng& copy);
-	~Line();
+	SDL_Rect	GetRect()const;
+	SDL_Color	GetColor()const;
 
-private:
-
-	iPoint position_2 = { 0,0 };
-
-public:
-
-	//Functionality ---------
-	//Draw
-	bool	Draw();
-	//Set Methods
-	void			SetP1(const iPoint& p1);
-	void			SetP2(const iPoint& p2);
-	//Get Methods
-	const iPoint&	GetP1()const;
-	const iPoint& 	GetP2()const;
 };
 /// ---------------------------------------------
 #endif // _ISO_PRIMITVES_

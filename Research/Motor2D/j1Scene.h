@@ -37,7 +37,7 @@ public:
 
 private:
 
-	MyEntity*	player = nullptr;
+
 
 public:
 

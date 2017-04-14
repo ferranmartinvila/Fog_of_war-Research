@@ -26,9 +26,6 @@ public:
 	// Called each loop iteration
 	bool PostUpdate();
 
-	//Draw entities
-	bool Draw()const;
-
 	// Called before quitting
 	bool CleanUp();
 

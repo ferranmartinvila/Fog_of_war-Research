@@ -138,17 +138,6 @@ bool Circle::Intersects(const Circle * target) const
 	return (rad >= vec_len);
 }
 
-bool Circle::Intersects(const Rectng * target) const
-{
-	iPoint vec = (target->GetPosition() + target->GetDisplacement()) - position;
-	fPoint norm(vec.x, vec.y);
-	norm.Norm();
-	vec.x -= ceil((target->GetWidth() * 0.5) * norm.x);
-	vec.y -= ceil(((target->GetHeight()) * 0.5) * norm.y);
-	float len = sqrt(vec.x * vec.x + vec.y * vec.y);
-	return (len <= rad);
-}
-
 bool Circle::Intersects(const iPoint* point) const
 {
 	iPoint loc(point->x - position.x, point->y - position.y);
@@ -166,16 +155,6 @@ iPoint Circle::NearestPoint(const Circle* target) const
 	return iPoint(position.x + vec.x, position.y + vec.y);
 }
 
-iPoint Circle::NearestPoint(const Rectng* target) const
-{
-	iPoint vec = (target->GetPosition() + target->GetDisplacement()) - position;
-	fPoint norm(vec.x, vec.y);
-	norm.Norm();
-	vec.x -= ceil((target->GetWidth() * 0.5) * norm.x);
-	vec.y -= ceil((target->GetHeight() * 0.5) * norm.y);
-	return iPoint(position.x + vec.x, position.y + vec.y);
-}
-
 void Circle::SetRad(uint r)
 {
 	rad = r;
@@ -187,105 +166,48 @@ uint Circle::GetRad() const
 }
 /// ---------------------------------------------
 
-
-///Class Rectangle ------------------------------
+///Class Rectngle ------------------------------
 //Constructors ==============
-Rectng::Rectng(const iPoint& position, uint width, uint height, const iPoint& desplacement) :Primitive(position, desplacement), width(width), height(height)
-{
-
-}
-
-Rectng::Rectng(const Rectng& copy) : Primitive(copy), width(copy.width), height(copy.height)
+Rectngle::Rectngle(const iPoint & position, uint width, uint height) :rect({ position.x, position.y, (int)width, (int)height })
 {
 
 }
 
 //Destructors ===============
-Rectng::~Rectng()
+Rectngle::~Rectngle()
 {
 
-}
-
-
-//Functionality =============
-bool Rectng::Draw()
-{
-	bool ret = false;
-
-	//Calculate the diagonal distance from the center to the vertex
-	int diagonal_len = (int)floor(sqrt(((width*0.5f)*(width*0.5f)) + ((height*0.5f)*(height*0.5f))));
-
-	//Draw lines with the correct angles and coordinates to form the rotated quad
-	iPoint draw_pos(position.x + displacement.x, position.y + displacement.y);
-	ret = App->render->DrawLine(draw_pos.x, draw_pos.y - (int)(diagonal_len * sin(x_angle)), draw_pos.x + diagonal_len, draw_pos.y, color.r, color.g, color.b, color.a, true);
-	ret = App->render->DrawLine(draw_pos.x, draw_pos.y + (int)(diagonal_len * sin(x_angle)), draw_pos.x + diagonal_len, draw_pos.y, color.r, color.g, color.b, color.a, true);
-	ret = App->render->DrawLine(draw_pos.x - diagonal_len, draw_pos.y, draw_pos.x, draw_pos.y - (int)(diagonal_len * sin(x_angle)), color.r, color.g, color.b, color.a, true);
-	ret = App->render->DrawLine(draw_pos.x - diagonal_len, draw_pos.y, draw_pos.x, draw_pos.y + (int)(diagonal_len * sin(x_angle)), color.r, color.g, color.b, color.a, true);
-
-	return true;
-}
-
-void Rectng::SetWidth(uint w)
-{
-	width = w;
-}
-
-void Rectng::SetHeight(uint h)
-{
-	height = h;
-}
-
-uint Rectng::GetWidth() const
-{
-	return width;
-}
-
-uint Rectng::GetHeight() const
-{
-	return height;
-}
-/// ---------------------------------------------
-
-
-///Class Line -----------------------------------
-//Constructors ==============
-Line::Line(const iPoint & position, const iPoint & position_2, const SDL_Color& color, const iPoint& desplacement) :Primitive(position, desplacement, color), position_2(position_2)
-{
-
-}
-
-Line::Line(const Rectng & copy) : Primitive(position, displacement, color), position_2(position_2)
-{
-}
-
-//Destructors ===============
-Line::~Line()
-{
 }
 
 //Functionality =============
-bool Line::Draw()
+bool Rectngle::Draw()
 {
-	return App->render->DrawLine(position.x + displacement.x, position.y + displacement.y, position_2.x, position_2.y, color.r, color.g, color.b, color.a);
+	/*App->render->*/
+	return false;
 }
 
-void Line::SetP1(const iPoint & p1)
+void Rectngle::SetPosition(int x, int y)
 {
-	position = p1;
+	rect.x = x;
+	rect.y = y;
 }
 
-void Line::SetP2(const iPoint & p2)
+void Rectngle::SetRect(const SDL_Rect & new_rect)
 {
-	position_2 = p2;
+	rect = new_rect;
 }
 
-const iPoint& Line::GetP1() const
+void Rectngle::SetColor(const SDL_Color & new_color)
 {
-	return position;
+	color = new_color;
 }
 
-const iPoint& Line::GetP2() const
+SDL_Rect Rectngle::GetRect() const
 {
-	return position_2;
+	return rect;
 }
-/// ---------------------------------------------
+
+SDL_Color Rectngle::GetColor() const
+{
+	return color;
+}

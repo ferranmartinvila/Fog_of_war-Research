@@ -13,31 +13,22 @@ class Blit_Call
 public:
 
 	Blit_Call();
-	Blit_Call(const iPoint& position, const iPoint& pivot, SDL_Texture* texture, SDL_Rect* rect, bool flip, int priority, uint opacity);
+	Blit_Call(const SDL_Rect& rect, const iPoint& pivot, const SDL_Color& color, int priority = 0);
 	~Blit_Call();
 
 private:
 
-	iPoint			position = { 0,0 };
-	iPoint			pivot = { 0,0 };
-	SDL_Texture*	texture = nullptr;
-	SDL_Rect*		rect = nullptr;
-	bool			flip = false;
-	uint			opacity = 255;
-	int				priority = 0;
-
+	iPoint				pivot = { 0,0 };
+	SDL_Rect			rect;
+	SDL_Color			color;
+	int					priority = 0;
 
 public:
 
 	//Get Methods -----------
-	int				GetX()const;
-	int				GetY()const;
-	int				GetXPivot()const;
-	int				GetYPivot()const;
-	SDL_Texture*	GetTex()const;
-	const SDL_Rect*	GetRect()const;
-	bool			GetFlip()const;
-	uint			GetOpacity()const;
+	iPoint				GetPivot()const;
+	SDL_Rect			GetRect()const;
+	SDL_Color			GetColor()const;
 
 	//Operator to compare blit calls in the priority queue
 	bool operator<(const Blit_Call& target) const;
@@ -87,7 +78,7 @@ public:
 public:
 
 	//Add blit call ---------
-	bool	CallBlit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, bool horizontal_flip = false, int priority = 0, uint opacity = 255, int pivot_x = 0, int pivot_y = 0, float speed = 1.0f, double angle = 0);
+	bool	CallBlit(const SDL_Rect rect, const iPoint pivot, const SDL_Color color, int priority = 0);
 	
 	//View port Methods ------
 	void	SetViewPort(const SDL_Rect& rect);
@@ -97,7 +88,9 @@ public:
 	iPoint	ScreenToWorld(int x, int y) const;
 
 	// Draw & Blit ----------
-	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, bool horizontal_flip = false, uint opacity = 255, int pivot_x = 0, int pivot_y = 0, float speed = 1.0f, double angle = 0) const;
+	bool Blit(const SDL_Rect* rect, const iPoint pivot, const SDL_Color* color) const;
+	bool TileBlit(SDL_Texture* texture, int x, int y, const SDL_Rect* section);
+	
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, float x_angle = 0, bool use_camera = true) const;
