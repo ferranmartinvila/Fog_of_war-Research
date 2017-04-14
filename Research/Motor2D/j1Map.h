@@ -164,13 +164,17 @@ public:
 	//Transform world coordinates to map coordinates
 	iPoint WorldToMap(int x, int y) const;
 	
-	iPoint FixPointMap(int x, int y);
+	void FixPointMap(float& x, float& y);
+	
+	bool	IsInMap(float x, float y)const;
 
 private:
 
 	pugi::xml_document	map_file;
 	std::string			folder;
 	bool				map_loaded;
+
+public:
 
 	QuadTree<iPoint>	map_quadtree;
 

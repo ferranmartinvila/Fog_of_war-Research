@@ -48,6 +48,9 @@
     <ClCompile Include="j1Player.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1FogOfWar.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -108,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="Quadtree.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1FogOfWar.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@ MyEntity::~MyEntity()
 //Game Loop Methods ===================
 void MyEntity::Draw()
 {
-	App->render->CallBlit(sprite.GetRect(), iPoint(-sprite.GetRect().w * 0.5, sprite.GetRect().h * 0.5), sprite.GetColor(), position.y);
+	App->render->CallBlit(sprite.GetRect(), iPoint(-sprite.GetRect().w * 0.5, -sprite.GetRect().h ), sprite.GetColor(), position.y);
 }
 
 //Set Methods =========================
@@ -43,6 +43,9 @@ void MyEntity::SetType(ENTITY_TY new_type)
 
 void MyEntity::SetPosition(float x, float y)
 {
+	
+	if (!App->map->IsInMap(x, y))return;
+
 	//Extract the units to push it with the new position later
 	App->entities_manager->entities_quadtree.Exteract(this, &position);
 

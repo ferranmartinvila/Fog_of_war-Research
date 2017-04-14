@@ -81,6 +81,7 @@
     <ClCompile Include="Iso_Primitives.cpp" />
     <ClCompile Include="j1EntitiesManager.cpp" />
     <ClCompile Include="j1FileSystem.cpp" />
+    <ClCompile Include="j1FogOfWar.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Input.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="Iso_Primitives.h" />
     <ClInclude Include="BaseEntities.h" />
     <ClInclude Include="j1FileSystem.h" />
+    <ClInclude Include="j1FogOfWar.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Player.h" />

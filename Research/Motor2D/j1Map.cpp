@@ -157,7 +157,7 @@ iPoint j1Map::WorldToMap(int x, int y) const
 	return ret;
 }
 
-iPoint j1Map::FixPointMap(int x, int y)
+void j1Map::FixPointMap(float& x, float& y)
 {
 	iPoint ret(x,y);
 	
@@ -170,7 +170,61 @@ iPoint j1Map::FixPointMap(int x, int y)
 		else if(y>(data.height*data.tile_height))
 			ret.y = data.height*data.tile_height;
 
-		return ret;
+	x = ret.x;
+	y = ret.y;
+}
+
+bool j1Map::IsInMap(float x,float y) const
+{
+	/*
+	iPoint ret(x, y);
+
+	if (ret.x < ((data.width * data.tile_width) * -0.5))
+	{
+		ret.x = (data.width * data.tile_width) * -0.5;
+	}
+	else if (ret.x >((data.width * data.tile_width) * 0.5))
+	{
+		ret.x = (data.width * data.tile_width) * 0.5;
+	}
+	*/
+
+	float mid_map_height = (data.height * (data.tile_height + MARGIN)) * 0.5f;
+	float mid_map_width = (data.width * (data.tile_width)) * 0.5f;
+	float min_y = mid_map_height - ((mid_map_width - abs(x)) * 0.5f);
+	float max_y = mid_map_height + ((mid_map_width - abs(x)) * 0.5f);
+
+	if (y < min_y)
+	{
+		return false;
+	}
+
+	if (y > max_y)
+	{
+		return false;
+	}
+
+	if (x < ((data.width * data.tile_width) * -0.5))
+	{
+		return false;
+	}
+		
+	if (x > ((data.width*data.tile_width)*0.5))
+	{
+		return false;
+	}
+
+	if (y < 0)
+	{
+		return false;
+	}
+		
+	if (y > (data.height * (data.tile_height + MARGIN)))
+	{
+		return false;
+	}
+		
+	return true;
 }
 
 SDL_Rect TileSet::GetTileRect(int id) const
