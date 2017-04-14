@@ -122,8 +122,11 @@ bool j1Render::Awake(pugi::xml_node& config)
 bool j1Render::Start()
 {
 	LOG("render start");
+
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
+
+
 	return true;
 }
 

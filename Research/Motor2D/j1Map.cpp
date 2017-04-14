@@ -161,12 +161,6 @@ void j1Map::Draw(bool debug)
 	{
 		MapLayer* layer = item._Ptr->_Myval;
 
-		if (layer->properties.Get("Draw") == false && (layer->properties.Get("Navigation") == true && collide_layer == false))
-		{
-			item++;
-			continue;
-		}
-
 		for (int y = 0; y < data.height; ++y)
 		{
 			for (int x = 0; x < data.width; ++x)
@@ -275,7 +269,7 @@ iPoint j1Map::MapToWorld(int x, int y) const
 	else if (data.type == MAPTYPE_ISOMETRIC)
 	{
 		ret.x = (x - y) * (int)(data.tile_width * 0.5f);
-		ret.y = (x + y) * (int)(data.tile_height * 0.5f);
+		ret.y = (x + y) * (int)((data.tile_height + 1) * 0.5f);
 	}
 	else
 	{
@@ -290,31 +284,16 @@ iPoint j1Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0, 0);
 
-	if (data.type == MAPTYPE_ORTHOGONAL)
-	{
-		ret.x = x / data.tile_width;
-		ret.y = y / data.tile_height;
-	}
-	else if (data.type == MAPTYPE_ISOMETRIC)
-	{
-
-		float half_width = data.tile_width * 0.5f;
-		float half_height = data.tile_height * 0.5f;
+	float half_width = data.tile_width * 0.5f;
+	float half_height = data.tile_height * 0.5f;
 	
-		float pX = ((x / half_width + y / half_height) / 2);
-		float pY = ((y / half_height - (x / half_width)) / 2);
+	float pX = ((x / half_width + y / half_height) / 2);
+	float pY = ((y / half_height - (x / half_width)) / 2);
 	
-		pX = (pX > (floor(pX) + 0.5f)) ? ceil(pX) : floor(pX);
-		pY = (pY > (floor(pY) + 0.5f)) ? ceil(pY) : floor(pY);
-		ret.x = pX;
-		ret.y = pY;
-
-	}
-	else
-	{
-		LOG("Unknown map type");
-		ret.x = x; ret.y = y;
-	}
+	pX = (pX > (floor(pX) + 0.5f)) ? ceil(pX) : floor(pX);
+	pY = (pY > (floor(pY) + 0.5f)) ? ceil(pY) : floor(pY);
+	ret.x = pX;
+	ret.y = pY;
 
 	return ret;
 }
@@ -333,12 +312,6 @@ iPoint j1Map::FixPointMap(int x, int y)
 			ret.y = data.height*data.tile_height;
 
 		return ret;
-}
-
-void j1Map::CollideLayer() {
-
-	collide_layer = !collide_layer;
-
 }
 
 SDL_Rect TileSet::GetTileRect(int id) const
@@ -622,8 +595,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->encoding = node.child("data").attribute("encoding").as_string();
 	LOG("Layer Data Encoding: %s", layer->encoding.c_str());
 
-	//Load advanced properties
-	LoadProperties(node, layer->properties);
+
 	pugi::xml_node layer_data = node.child("data");
 
 	if (layer_data == NULL)
@@ -663,31 +635,6 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 				layer->data[i++] = atoi(test);
 			}
 
-		}
-	}
-
-	return ret;
-}
-
-// Load a group of properties from a node and fill a list with it
-bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
-{
-	bool ret = false;
-
-	pugi::xml_node data = node.child("properties");
-
-	if (data != NULL)
-	{
-		pugi::xml_node prop;
-
-		for (prop = data.child("property"); prop; prop = prop.next_sibling("property"))
-		{
-			Properties::Property* p = new Properties::Property();
-
-			p->name = prop.attribute("name").as_string();
-			p->value = prop.attribute("value").as_bool();
-
-			properties.list.push_back(p);
 		}
 	}
 

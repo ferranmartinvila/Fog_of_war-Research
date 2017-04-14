@@ -4,7 +4,7 @@
 #include "PugiXml/src/pugixml.hpp"
 #include "p2Point.h"
 #include "j1Module.h"
-
+#include "Quadtree.h"
 #include "SDL/include/SDL_rect.h"
 struct SDL_Texture;
 
@@ -144,8 +144,6 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	//Load Map Layer
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-	//Load Map properties
-	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
 public:
 
@@ -177,8 +175,5 @@ private:
 	std::string			folder;
 	bool				map_loaded;
 
-	bool collide_layer = false;
-
 };
-
 #endif // __j1MAP_H__
