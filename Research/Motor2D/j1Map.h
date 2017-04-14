@@ -1,6 +1,9 @@
 #ifndef __j1MAP_H__
 #define __j1MAP_H__
 
+#define MARGIN 1
+#define DEFAULT_TILE 3
+
 #include "PugiXml/src/pugixml.hpp"
 #include "p2Point.h"
 #include "j1Module.h"
@@ -152,28 +155,24 @@ public:
 
 	//Unload Current map
 	bool UnLoadMap();
-	//Generate walkability map from map tiles id
-	bool CreateWalkabilityMap(uint& width, uint & height, uchar** buffer);
-	//Generate walkability cost map from map tiles id
-	bool CreateWalkCostMap(int& width, int& height, uchar** buffer)const;
-	//Get Movement cost from x y coordinates
-	int MovementCost(int x, int y) const;
 	//Get Tileset from tile id
 	TileSet* GetTilesetFromTileId(int id) const;
 	//Transform map coordinates to world coordinates
 	iPoint MapToWorld(int x, int y) const;
+	//Transform map coordinates to word coordinates (in tile center)
+	iPoint MapToWorldCenter(int x, int y)const;
 	//Transform world coordinates to map coordinates
 	iPoint WorldToMap(int x, int y) const;
 	
 	iPoint FixPointMap(int x, int y);
-	//Get Collide Layer
-	void CollideLayer();
 
 private:
 
 	pugi::xml_document	map_file;
 	std::string			folder;
 	bool				map_loaded;
+
+	QuadTree<iPoint>	map_quadtree;
 
 };
 #endif // __j1MAP_H__

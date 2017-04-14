@@ -40,7 +40,7 @@
   </map>
 
   <scene>
-  	<map_folder>TinyMap.tmx</map_folder>
+  	<map_folder>SimpleMap.tmx</map_folder>
   </scene>
   
 </config>

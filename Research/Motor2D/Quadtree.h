@@ -5,7 +5,6 @@
 
 #define NODE_SUBDIVISION 4
 
-
 #include "SDL/include/SDL_rect.h"
 #include "p2Point.h"
 #include "p2Log.h"
@@ -545,7 +544,10 @@ public:
 				SDL_Point point = { loc.x,loc.y };
 
 				if (SDL_PointInRect(&point, &rect))
+				{
 					nodes.push_back(object._Ptr->_Myval.data);
+					ret++;
+				}
 
 				object++;
 			}
@@ -669,7 +671,7 @@ public:
 
 	int	CollectCandidates(std::vector<DATA_TYPE>& nodes, const SDL_Rect& r) const
 	{
-		int tests = 1;
+		int tests = 0;
 
 		if (root != NULL && SDL_HasIntersection(&r, &root->aabb))
 			tests = root->CollectCandidates(nodes, r);
@@ -779,11 +781,11 @@ public:
 
 	int	CollectCandidates(std::vector<DATA_TYPE>& nodes, const SDL_Rect& r) const
 	{
-		int tests = 1;
+		int cand = 0;
 
 		if (root != NULL && SDL_HasIntersection(&r, &root->aabb))
-			tests = root->CollectCandidates(nodes, r);
-		return tests;
+			cand = root->CollectCandidates(nodes, r);
+		return cand;
 	}
 
 	int	CollectCandidates(std::vector<DATA_TYPE>& nodes, const Circle& circle) const

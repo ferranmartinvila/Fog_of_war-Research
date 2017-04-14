@@ -2,19 +2,18 @@
   j1Map.cpp
 c:\users\ferra\desktop\fog_of_war-research\research\motor2d\brofiler\brofiler.h(275): warning C4005: 'BROFILER_FRAME': macro redefinition
   c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1app.h(10): note: see previous definition of 'BROFILER_FRAME'
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(49): warning C4018: '<': signed/unsigned mismatch
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(51): warning C4018: '<': signed/unsigned mismatch
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(88): warning C4018: '<': signed/unsigned mismatch
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(90): warning C4018: '<': signed/unsigned mismatch
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(110): warning C4018: '<': signed/unsigned mismatch
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(164): warning C4018: '<': signed/unsigned mismatch
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(166): warning C4018: '<': signed/unsigned mismatch
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(203): warning C4244: 'initializing': conversion from 'double' to 'uint', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(204): warning C4244: 'initializing': conversion from 'double' to 'uint', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(295): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(296): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(306): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(308): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(311): warning C4018: '>': signed/unsigned mismatch
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(39): warning C4838: conversion from 'uint' to 'int' requires a narrowing conversion
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(62): warning C4244: 'initializing': conversion from 'double' to 'uint', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(63): warning C4244: 'initializing': conversion from 'double' to 'uint', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(123): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(133): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(134): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(141): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(149): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(150): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(165): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(167): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(170): warning C4018: '>': signed/unsigned mismatch
+c:\users\ferra\desktop\fog_of_war-research\research\motor2d\j1map.cpp(356): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Research\Debug\Fog of War.exe
   Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Research\Debug\Fog of War.pdb (Full PDB)

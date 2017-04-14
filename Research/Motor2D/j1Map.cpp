@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+
 #include "j1Map.h"
 
 #include "p2Log.h"
@@ -7,6 +8,7 @@
 #include "j1FileSystem.h"
 #include "j1Textures.h"
 #include "j1Window.h"
+#include "j1EntitiesManager.h"
 
 #include <math.h>
 
@@ -30,170 +32,27 @@ bool j1Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-bool j1Map::CreateWalkabilityMap(uint& width, uint & height, uchar** buffer) {
-
-	bool ret = false;
-
-
-	std::list<MapLayer*>::iterator item;
-	for (item = data.layers.begin(); item._Ptr->_Myval != NULL; item++)
-	{
-		MapLayer* layer = item._Ptr->_Myval;
-
-		if (layer->properties.Get("Navigation") == false)
-			continue;
-
-		uchar* map = new uchar[layer->width*layer->height];
-		memset(map, 1, layer->width*layer->height);
-
-		for (int y = 0; y < data.height; ++y)
-		{
-			for (int x = 0; x < data.width; ++x)
-			{
-				int i = (y*layer->width) + x;
-
-				int tile_id = layer->Get(x, y);
-				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
-
-				if (tileset != NULL)
-				{
-
-					if (tile_id == 29)map[i] = 0;
-					else map[i] = 1;
-
-				}
-			}
-		}
-
-		*buffer = map;
-		width = data.width;
-		height = data.height;
-		ret = true;
-
-		break;
-	}
-
-	return ret;
-
-}
-
-bool j1Map::CreateWalkCostMap(int & width, int & height, uchar ** buffer) const
-{
-	bool ret = false;
-
-
-	uchar* map = new uchar[width*height];
-	memset(map, 1, width*height);
-
-	for (int y = 0; y < data.height; ++y)
-	{
-		for (int x = 0; x < data.width; ++x)
-		{
-
-			map[y*width + x] = MovementCost(x, y);
-
-		}
-	}
-
-	*buffer = map;
-	width = data.width;
-	height = data.height;
-	ret = true;
-
-	return ret;
-}
-
-int j1Map::MovementCost(int x, int y) const
-{
-	int ret = -1;
-
-	if (x >= 0 && x < data.width && y >= 0 && y < data.height)
-	{
-		int id = data.layers.begin()._Ptr->_Next->_Myval->Get(x, y);
-
-		ret = id;
-
-		switch (id) {
-		case 26:
-			ret = 12;
-			break;
-		case 27:
-			ret = 20;
-			break;
-		case 28:
-			ret = 14;
-			break;
-		case 29:
-			ret = 0;
-			break;
-		case 30:
-			ret = 1;
-			break;
-		case 31:
-			ret = 2;
-			break;
-		case 32:
-			ret = 3;
-			break;
-		case 33:
-			ret = 4;
-			break;
-		case 34:
-			ret = 5;
-			break;
-
-		}
-	}
-
-	return ret;
-}
-
 void j1Map::Draw(bool debug)
 {
-	if (map_loaded == false) return;
+	//Collect the tiles inside the viewport
+	std::vector<iPoint> tiles_in_view;
+	SDL_Rect viewport = { -App->render->camera.x - data.tile_width, -App->render->camera.y - data.tile_height, App->render->camera.w + data.tile_width * 2, App->render->camera.h + data.tile_height * 2};
+	map_quadtree.CollectCandidates(tiles_in_view, viewport);
 
-	//Iterators to iterate all the map layers
-	std::list<MapLayer*>::iterator item = data.layers.begin();
-	std::list<MapLayer*>::iterator end = data.layers.end();
+	uint size = tiles_in_view.size();
 
-	//Draw all map tiles
-	while(item != end)
+	//Get default tileset from default tile id
+	TileSet* tileset = GetTilesetFromTileId(DEFAULT_TILE);
+	//Get default tile texture from default tile id
+	SDL_Rect r = tileset->GetTileRect(DEFAULT_TILE);
+
+	for (uint k = 0; k < size; k++)
 	{
-		MapLayer* layer = item._Ptr->_Myval;
+		iPoint map_point = MapToWorld(tiles_in_view[k].x, tiles_in_view[k].y);
 
-		for (int y = 0; y < data.height; ++y)
-		{
-			for (int x = 0; x < data.width; ++x)
-			{
-				//Get tile id
-				int tile_id = layer->Get(x, y);
+		//Blit the current tile
+		App->render->Blit(tileset->texture, map_point.x, map_point.y, &r);
 
-				//Transform tile map coordinates to world coordinates
-				iPoint pos = MapToWorld(x, y);
-
-				//Check if the tile is inside the renderer view port
-				if (!(pos.x + data.tile_width * 0.9 >= -App->render->camera.x && pos.x <= -App->render->camera.x + App->render->camera.w) ||
-					!(pos.y + data.tile_height * 0.9 >= -App->render->camera.y && pos.y <= -App->render->camera.y + App->render->camera.h))
-				{
-					continue;
-				}
-
-				//Check if the tile is defined
-				if (tile_id > 0)
-				{
-					//Get tileset from tile id
-					TileSet* tileset = GetTilesetFromTileId(tile_id);
-
-					//Get tile texture rect
-					SDL_Rect r = tileset->GetTileRect(tile_id);
-					
-					//Blit the current tile
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
-				}
-			}
-		}
-
-		item++;
 	}
 
 	//Draw map tiles net
@@ -261,39 +120,39 @@ iPoint j1Map::MapToWorld(int x, int y) const
 {
 	iPoint ret;
 
-	if (data.type == MAPTYPE_ORTHOGONAL)
-	{
-		ret.x = x * data.tile_width;
-		ret.y = y * data.tile_height;
-	}
-	else if (data.type == MAPTYPE_ISOMETRIC)
-	{
-		ret.x = (x - y) * (int)(data.tile_width * 0.5f);
-		ret.y = (x + y) * (int)((data.tile_height + 1) * 0.5f);
-	}
-	else
-	{
-		LOG("Unknown map type");
-		ret.x = x; ret.y = y;
-	}
+	ret.x = (x - y) * (int)(data.tile_width * 0.5f) - data.tile_width * 0.5f;
+	ret.y = (x + y) * (int)(data.tile_height * 0.5f) + (x + y);
+
+	return ret;
+}
+
+iPoint j1Map::MapToWorldCenter(int x, int y) const
+{
+	iPoint ret = MapToWorld(x, y);
+
+	ret.x += data.tile_width * 0.5f;
+	ret.y += data.tile_height * 0.5f - MARGIN;
 
 	return ret;
 }
 
 iPoint j1Map::WorldToMap(int x, int y) const
 {
-	iPoint ret(0, 0);
+	iPoint ret(x + data.tile_width * 0.5f, y);
 
 	float half_width = data.tile_width * 0.5f;
-	float half_height = data.tile_height * 0.5f;
-	
-	float pX = ((x / half_width + y / half_height) / 2);
-	float pY = ((y / half_height - (x / half_width)) / 2);
-	
-	pX = (pX > (floor(pX) + 0.5f)) ? ceil(pX) : floor(pX);
-	pY = (pY > (floor(pY) + 0.5f)) ? ceil(pY) : floor(pY);
-	ret.x = pX;
-	ret.y = pY;
+	float half_height = (data.tile_height + MARGIN) * 0.5f;
+
+	float pX = (((ret.x / half_width) + (ret.y / half_height)) * 0.5f);
+	float pY = (((ret.y / half_height) - (ret.x / half_width)) * 0.5f);
+
+	ret.x = (pX > (floor(pX) + 0.5f)) ? ceil(pX) : floor(pX);
+	ret.y = (pY > (floor(pY) + 0.5f)) ? ceil(pY) : floor(pY);
+
+	if (ret.x <= 0)ret.x = 1;
+	else if (ret.x >= 120)ret.x = 119;
+	if (ret.y <= 0)ret.y = 0;
+	else if (ret.y >= 120)ret.y = 119;
 
 	return ret;
 }
@@ -487,24 +346,38 @@ bool j1Map::LoadMap()
 			if (v >= 0 && v <= 255) data.background_color.b = v;
 		}
 
-		std::string orientation(map.attribute("orientation").as_string());
 
-		if (orientation == "orthogonal")
+		data.type = MAPTYPE_ISOMETRIC;
+		
+
+
+		//Define map area 
+		SDL_Rect map_area;
+		map_area.x = ((data.width) * data.tile_width) * -0.5;
+		map_area.y = -App->render->camera.y;
+		map_area.w = data.width * data.tile_width;
+		map_area.h = data.height * data.tile_height + data.height;
+
+		// Define entities quadtree area 
+		App->entities_manager->entities_quadtree.SetBoundaries(map_area);
+
+		// Define map quadtree area
+		map_quadtree.SetBoundaries(map_area);
+		map_quadtree.SetMaxObjects(10);
+
+		//Fill the draw quad tree with all the tiles coordinates
+		uint fails = 0;
+		for (uint y = 0; y < data.height; y++)
 		{
-			data.type = MAPTYPE_ORTHOGONAL;
+			for (uint x = 0; x < data.width; x++)
+			{
+				iPoint loc = MapToWorldCenter(x, y);
+				if (!map_quadtree.Insert(iPoint(x, y), &loc)) fails++;
+			}
 		}
-		else if (orientation == "isometric")
-		{
-			data.type = MAPTYPE_ISOMETRIC;
-		}
-		else if (orientation == "staggered")
-		{
-			data.type = MAPTYPE_STAGGERED;
-		}
-		else
-		{
-			data.type = MAPTYPE_UNKNOWN;
-		}
+
+		LOG("Map QuadTree generated with: %i errors", fails);
+
 	}
 
 	return ret;
