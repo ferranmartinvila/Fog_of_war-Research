@@ -90,7 +90,8 @@ public:
 	// Draw & Blit ----------
 	bool Blit(const SDL_Rect* rect, const iPoint pivot, const SDL_Color* color) const;
 	bool TileBlit(SDL_Texture* texture, int x, int y, const SDL_Rect* section);
-	
+	bool FogBlit(const iPoint& position, uint w, uint h, Uint8 alpha);
+
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, float x_angle = 0, bool use_camera = true) const;

@@ -24,20 +24,35 @@ bool j1FogOfWar::Start()
 	uint size = App->map->data.width * App->map->data.height * DIVISIONS_PER_TILE;
 	alpha_layer_width = App->map->data.width * DIVISIONS_PER_TILE;
 	alpha_layer_height = App->map->data.height * DIVISIONS_PER_TILE;
+	int mid_map_lenght = (App->map->data.width * App->map->data.tile_width) * -0.5;
+
+	//Build fog quadtree boundaries & limit
+	fog_quadtree.SetBoundaries({ mid_map_lenght,0,(int)App->map->data.width * (int)App->map->data.tile_width,((int)App->map->data.height + MARGIN) * (int)App->map->data.tile_height });
+	fog_quadtree.SetMaxObjects(20);
+	fog_quadtree.SetDebugColor({ 255,255,0,255 });
 
 	//Build fog alpha layer
 	//Allocate alpha layer cells
 	alpha_layer = new AlphaCell[alpha_layer_width * alpha_layer_height];
 
 	//Set cells position
-	uint divided_tile_width = ceil(App->map->data.tile_width / DIVISIONS_PER_TILE);
-	uint divided_tile_height = ceil((App->map->data.tile_height + MARGIN) / DIVISIONS_PER_TILE);
-	int mid_map_lenght = (App->map->data.width * App->map->data.tile_width) * -0.5;
+	uint divided_tile_width = floor(App->map->data.tile_width / DIVISIONS_PER_TILE);
+	uint divided_tile_height = floor((App->map->data.tile_height + MARGIN) / DIVISIONS_PER_TILE);
+
+
+
 	for (uint y = 0; y < alpha_layer_height; y++)
 	{
 		for (uint x = 0; x < alpha_layer_width; x++)
 		{
-			alpha_layer[y * alpha_layer_width + x].position = { mid_map_lenght + (int)divided_tile_width * (int)x, (int)divided_tile_height * (int)y };
+			AlphaCell* current_cell = &alpha_layer[y * alpha_layer_width + x];
+
+			current_cell->position = { mid_map_lenght + (int)divided_tile_width * (int)x, (int)divided_tile_height * (int)y };
+			current_cell->alpha = rand() % 255;
+			if(!fog_quadtree.Insert(current_cell, &current_cell->position))
+			{
+				LOG("Fail");
+			}
 		}
 	}
 	
@@ -73,6 +88,19 @@ bool j1FogOfWar::Start()
 bool j1FogOfWar::PostUpdate()
 {
 	//Paste fog zone at the screen surface to render it
+	fog_quadtree.Draw();
+
+	std::vector<AlphaCell*> in_view_cells;
+	SDL_Rect viewport = { -App->render->camera.x - App->map->data.tile_width, -App->render->camera.y - App->map->data.tile_height, App->render->camera.w + App->map->data.tile_width * 2, App->render->camera.h + App->map->data.tile_height * 2 };
+
+	uint divided_tile_width = floor(App->map->data.tile_width / DIVISIONS_PER_TILE);
+	uint divided_tile_height = floor((App->map->data.tile_height + MARGIN) / DIVISIONS_PER_TILE);
+
+	uint size = fog_quadtree.CollectCandidates(in_view_cells, viewport);
+	for (uint k = 0; k < size; k++)
+	{
+		App->render->FogBlit(in_view_cells[k]->position, divided_tile_width, divided_tile_height, in_view_cells[k]->alpha);
+	}
 
 	if (SDL_BlitSurface(fog_surface, NULL, App->win->screen_surface, NULL) != 0)
 	{

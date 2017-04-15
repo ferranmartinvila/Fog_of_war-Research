@@ -3,9 +3,10 @@
 
 #include "j1Module.h"
 #include "Iso_Primitives.h"
+#include "Quadtree.h"
 
 #define ALPHA_LIMIT 255
-#define	DIVISIONS_PER_TILE 4
+#define	DIVISIONS_PER_TILE 3
 
 enum FOG_TYPE
 {
@@ -38,6 +39,7 @@ private:
 	AlphaCell* alpha_layer = nullptr;
 	uint alpha_layer_width = 0;
 	uint alpha_layer_height = 0;
+	QuadTree<AlphaCell*> fog_quadtree;
 
 public:
 

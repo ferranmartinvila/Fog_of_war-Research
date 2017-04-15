@@ -198,7 +198,10 @@ public:
 			{
 				SDL_Point pos = { objects[k].location.x,objects[k].location.y };
 				if (SDL_PointInRect(&pos, &rect))
+				{
 					nodes.push_back(objects[k].data);
+					ret++;
+				}
 			}
 		}
 
