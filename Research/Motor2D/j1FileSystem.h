@@ -26,19 +26,11 @@ public:
 	bool AddPath(const char* path_or_zip, const char* mount_point = NULL);
 	bool Exists(const char* file) const;
 	bool IsDirectory(const char* file) const;
-	const char* GetSaveDirectory() const
-	{
-		return "save/";
-	}
 
 	// Open for Read/Write
 	unsigned int Load(const char* file, char** buffer) const;
 	SDL_RWops* Load(const char* file) const;
 	bool LoadXML(const char* file, pugi::xml_document* doc)const;
-
-	unsigned int Save(const char* file, const char* buffer, unsigned int size) const;
-
-private:
 
 };
 

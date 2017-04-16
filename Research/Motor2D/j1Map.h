@@ -12,33 +12,6 @@
 struct SDL_Texture;
 
 // ----------------------------------------------------
-struct Properties
-{
-	struct Property
-	{
-		std::string name;
-		bool value;
-	};
-
-	~Properties()
-	{
-		std::list<Property*>::iterator item = list.begin();
-
-		while (item != list.end())
-		{
-			RELEASE(item._Ptr->_Myval);
-			item++;
-		}
-
-		list.clear();
-	}
-
-	int Get(const char* name, bool default_value = false) const;
-
-	std::list<Property*>	list;
-};
-
-// ----------------------------------------------------
 struct MapLayer
 {
 	std::string	name;
@@ -46,10 +19,11 @@ struct MapLayer
 	int			height;
 	std::string	encoding;
 	uint*		data;
-	Properties	properties;
 
 	MapLayer() : data(NULL)
-	{}
+	{
+	
+	}
 
 	~MapLayer()
 	{
@@ -68,18 +42,18 @@ struct TileSet
 	SDL_Rect GetTileRect(int id) const;
 
 	std::string			name;
-	int					firstgid;
-	int					margin;
-	int					spacing;
-	int					tile_width;
-	int					tile_height;
-	SDL_Texture*		texture;
-	int					tex_width;
-	int					tex_height;
-	int					num_tiles_width;
-	int					num_tiles_height;
-	int					offset_x;
-	int					offset_y;
+	int					firstgid = 0;
+	int					margin = 0;
+	int					spacing = 0;
+	int					tile_width = 0;
+	int					tile_height = 0;
+	SDL_Texture*		texture = nullptr;
+	int					tex_width = 0;
+	int					tex_height = 0;
+	int					num_tiles_width = 0;
+	int					num_tiles_height = 0;
+	int					offset_x = 0;
+	int					offset_y = 0;
 };
 
 enum MapTypes
@@ -90,29 +64,17 @@ enum MapTypes
 	MAPTYPE_STAGGERED
 };
 
-enum TERRAIN {
-
-	GRASS = 27,
-	WATER,
-	MUD,
-	DEEP_WATER,
-	PORTAL
-
-};
-
 // ----------------------------------------------------
 struct MapData
 {
-	uint				width;
-	uint				height;
-	uint				tile_width;
-	uint				tile_height;
-	SDL_Color			background_color;
-	MapTypes			type;
+	uint				width = 0;
+	uint				height = 0;
+	uint				tile_width = 0;
+	uint				tile_height = 0;
+	SDL_Color			background_color = { 0,0,0,0 };
+	MapTypes			type = MAPTYPE_UNKNOWN;
 	std::list<TileSet*>	tilesets;
 	std::list<MapLayer*>layers;
-
-	bool UnLoadLayer();
 };
 
 // ----------------------------------------------------
@@ -121,9 +83,7 @@ class j1Map : public j1Module
 public:
 
 	j1Map();
-
-	// Destructor
-	virtual ~j1Map();
+	~j1Map();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
@@ -153,26 +113,26 @@ public:
 	//Class that allocate all the map data
 	MapData data;
 
-	//Unload Current map
-	bool UnLoadMap();
 	//Get Tileset from tile id
 	TileSet* GetTilesetFromTileId(int id) const;
+	
 	//Transform map coordinates to world coordinates
 	iPoint MapToWorld(int x, int y) const;
+	
 	//Transform map coordinates to word coordinates (in tile center)
 	iPoint MapToWorldCenter(int x, int y)const;
+	
 	//Transform world coordinates to map coordinates
 	iPoint WorldToMap(int x, int y) const;
 	
-	void FixPointMap(float& x, float& y);
-	
+	//Return true if the coordinates are in the map area
 	bool	IsInMap(float x, float y)const;
 
 private:
 
 	pugi::xml_document	map_file;
 	std::string			folder;
-	bool				map_loaded;
+	bool				map_loaded = false;
 
 public:
 

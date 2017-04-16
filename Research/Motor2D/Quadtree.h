@@ -233,7 +233,7 @@ public:
 
 				if (circle.IsIn(&loc))
 				{
-					nodes.push_back(objects[k].location);
+					nodes.push_back(objects[k].data);
 					ret++;
 				}
 
@@ -583,7 +583,10 @@ public:
 				fPoint loc = object._Ptr->_Myval.location;
 
 				if (circle.IsIn(&loc))
+				{
 					nodes.push_back(object._Ptr->_Myval.data);
+					ret++;
+				}
 
 				object++;
 			}

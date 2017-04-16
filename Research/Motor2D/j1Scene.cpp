@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1EntitiesManager.h"
+#include "j1FogOfWar.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -39,6 +40,37 @@ bool j1Scene::Start()
 	Load_Map();
 	// ----------------------------------------------------
 	
+	//Fog of War build ------------------------------------
+	App->fog_of_war->GeneratFogOfWar();
+	// ----------------------------------------------------
+
+	//Generate Scene Ally , Neutral & Enemy entities ------
+	//Neutral entity definition -------
+	MyEntity* entity = App->entities_manager->GenerateUnit();
+	iPoint location = App->map->MapToWorld(20, 20);
+	entity->SetEntityColor({ 0,0,255,255 });
+	entity->SetSpriteSize(15,30);
+	entity->SetType(ENTITY_TYPE::NEUTRAL);
+	entity->SetVisionRange(300);
+	entity->SetPosition(location.x, location.y);
+	//Ally entity definition ----------
+	entity = App->entities_manager->GenerateUnit();
+	location = App->map->MapToWorld(25, 5);
+	entity->SetEntityColor({ 0,255,0,255 });
+	entity->SetSpriteSize(15, 30);
+	entity->SetType(ENTITY_TYPE::ALLY);
+	entity->SetVisionRange(150);
+	entity->SetPosition(location.x, location.y);
+	//Enemy entity definition ---------
+	entity = App->entities_manager->GenerateUnit();
+	location = App->map->MapToWorld(5, 15);
+	entity->SetEntityColor({ 255,0,0,255 });
+	entity->SetSpriteSize(15, 30);
+	entity->SetType(ENTITY_TYPE::ENEMY);
+	entity->SetVisionRange(100);
+	entity->SetPosition(location.x, location.y);
+	// ----------------------------------------------------
+
 	return true;
 }
 
@@ -51,27 +83,6 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	//MAP MOVEMENT-----------------------------------------
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{
-		App->render->camera.y += SDL_ceil(500 * dt);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		App->render->camera.y -= SDL_ceil(500 * dt);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		App->render->camera.x += SDL_ceil(500 * dt);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		App->render->camera.x -= SDL_ceil(500 * dt);
-	}
-	// ------------------------------------------
 
 	App->map->Draw(App->debug_mode);
 

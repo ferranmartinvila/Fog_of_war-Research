@@ -11,11 +11,9 @@ class j1Scene : public j1Module
 public:
 
 	j1Scene();
+	~j1Scene();
 
-	// Destructor
-	virtual ~j1Scene();
-
-	void Init() { active = true; }
+public:
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);

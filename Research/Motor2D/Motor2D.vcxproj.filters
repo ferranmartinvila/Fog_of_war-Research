@@ -36,9 +36,6 @@
     </ClCompile>
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Main.cpp" />
-    <ClCompile Include="BaseEntities.cpp">
-      <Filter>Modules\EnititiesManager\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1EntitiesManager.cpp">
       <Filter>Modules\EnititiesManager</Filter>
     </ClCompile>
@@ -50,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="j1FogOfWar.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Modules\EnititiesManager\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,9 +100,6 @@
     <ClInclude Include="j1EntitiesManager.h">
       <Filter>Modules\EnititiesManager</Filter>
     </ClInclude>
-    <ClInclude Include="BaseEntities.h">
-      <Filter>Modules\EnititiesManager\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Iso_Primitives.h">
       <Filter>Tools</Filter>
     </ClInclude>
@@ -114,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="j1FogOfWar.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Modules\EnititiesManager\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

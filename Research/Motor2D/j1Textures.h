@@ -11,30 +11,26 @@ class j1Textures : public j1Module
 public:
 
 	j1Textures();
+	~j1Textures();
 
-	// Destructor
-	virtual ~j1Textures();
+public:
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
-
-	// Called before the first frame
-	bool Start();
 
 	// Called before quitting
 	bool CleanUp();
 
 	// Load Texture
 	SDL_Texture* const	Load(const char* path);
-	// UnLoad Texture
-	bool				UnLoad(SDL_Texture* texture);
+
+	// Load Surface
 	SDL_Texture* const	LoadSurface(SDL_Surface* surface);
-	//Get Texture dimensions
-	void				GetSize(const SDL_Texture* texture, uint& width, uint& height) const;
 
 public:
 
 	std::list<SDL_Texture*>	textures;
+
 };
 
 

@@ -207,12 +207,6 @@ void j1App::PrepareUpdate()
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
-	if(want_to_save == true)
-		SavegameNow();
-
-	if(want_to_load == true)
-		LoadGameNow();
-
 	// Framerate calculations --
 
 	if(last_sec_frame_time.Read() > 1000)
@@ -303,10 +297,6 @@ bool j1App::CleanUp()
 		item--;
 	}
 
-
-	saved_games.clear();
-	
-
 	PERF_PEEK(ptimer);
 	return ret;
 }
@@ -342,164 +332,6 @@ float j1App::GetDT() const
 const char* j1App::GetOrganization() const
 {
 	return organization.c_str();
-}
-
-// Load / Save
-void j1App::LoadGame(const char* file)
-{
-	bool ret = false;
-	std::list<std::string*>::const_iterator item = saved_games.begin();
-
-	while (item != saved_games.end())
-	{
-		if (*item._Ptr->_Myval == file)
-		{
-			ret = true;
-			break;
-		}
-		item++;
-	}
-	if (ret)
-	{
-		want_to_load = true;
-		load_game = std::string(fs->GetSaveDirectory()) + std::string(file);
-	}
-	else LOG("Load Directory is no available!");
-}
-
-// ---------------------------------------
-void j1App::SaveGame(const char* file) const
-{
-	std::list<std::string*>::const_iterator item = saved_games.begin();
-	bool exist = false;
-	while (item != saved_games.end())
-	{
-		if (*item._Ptr->_Myval == file)exist = true;
-		item++;
-	}
-	if (!exist)
-	{
-		std::string* new_file_str = new std::string(file);
-		saved_games.push_back(new_file_str);
-
-	}
-
-	want_to_save = true;
-	save_game = file;
-}
-
-// ---------------------------------------
-void j1App::GetSaveGames(std::list<std::string*>& list_to_fill) const
-{
-	list_to_fill = saved_games;
-}
-
-bool j1App::IsXMLdir(const char * dir) const
-{
-	uint len = strlen(dir);
-	if (len < 4)return false;
-	bool format_zone = false;
-	char* temp = new char[strlen(dir)];
-	uint j = 0;
-	for (uint k = 0; k < len; k++)
-	{
-		if (dir[k] == '.')format_zone = true;
-		else if (format_zone)
-		{
-			temp[j] = dir[k];
-			j++;
-		}
-
-	}
-	temp[j] = '\0';
-	std::string str = temp;
-	delete temp;
-	if (str == "xml")return true;
-
-	return false;
-}
-
-bool j1App::LoadGameNow()
-{
-	bool ret = false;
-
-	char* buffer;
-	uint size = fs->Load(load_game.c_str(), &buffer);
-
-	if(size > 0)
-	{
-		pugi::xml_document data;
-		pugi::xml_node root;
-
-		pugi::xml_parse_result result = data.load_buffer(buffer, size);
-		RELEASE(buffer);
-
-		if(result != NULL)
-		{
-			LOG("Loading new Game State from %s...", load_game.c_str());
-
-			root = data.child("game_state");
-
-			std::list<j1Module*>::const_iterator item = modules.begin();
-			ret = true;
-
-			while(item != modules.end() && ret == true)
-			{
-				ret = item._Ptr->_Myval->Load(root.child(item._Ptr->_Myval->name.c_str()));
-				item++;
-			}
-
-			data.reset();
-			if(ret == true)
-				LOG("...finished loading");
-			else
-				LOG("...loading process interrupted with error on module %s", (item._Ptr->_Myval != NULL) ? item._Ptr->_Myval->name.c_str() : "unknown");
-		}
-		else
-			LOG("Could not parse game state xml file %s. pugi error: %s", load_game.c_str(), result.description());
-	}
-	else
-		LOG("Could not load game state xml file %s", load_game.c_str());
-
-	want_to_load = false;
-	return ret;
-}
-
-bool j1App::SavegameNow() 
-{
-	bool ret = true;
-
-	LOG("Saving Game State to %s...", save_game.c_str());
-
-	// xml object were we will store all data
-	pugi::xml_document data;
-	pugi::xml_node root;
-	
-	root = data.append_child("game_state");
-
-	std::list<j1Module*>::const_iterator item = modules.begin();
-
-	while(item != modules.end() && ret == true)
-	{
-		ret = item._Ptr->_Myval->Save(root.append_child(item._Ptr->_Myval->name.c_str()));
-		item++;
-	}
-
-	if(ret == true)
-	{
-		std::stringstream stream;
-		data.save(stream);
-
-		// we are done, so write data to disk
-		fs->Save(save_game.c_str(), stream.str().c_str(), stream.str().length());
-		LOG("... finished saving", save_game.c_str());
-	}
-	else
-		LOG("Save process halted from an error in module %s", (item._Ptr->_Myval != NULL) ? item._Ptr->_Myval->name.c_str() : "unknown");
-
-	data.reset();
-	want_to_save = false;
-	return ret;
 }
 
 j1Module * j1App::GetModule(const std::string* module_name)

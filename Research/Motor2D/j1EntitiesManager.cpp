@@ -53,6 +53,17 @@ bool j1EntitiesManager::Update(float dt)
 
 bool j1EntitiesManager::PostUpdate()
 {
+	if (App->debug_mode)
+	{
+		std::list<MyEntity*>::const_iterator entity = entities_list.begin();
+		while (entity != entities_list.end())
+		{
+			entity._Ptr->_Myval->DebugDraw();
+
+			entity++;
+		}
+	}
+
 	//Clean all the wasted entities
 	uint size = wasted_entities.size();
 	for (uint k = 0; k < size; k++)

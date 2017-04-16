@@ -3,6 +3,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Window.h"
+#include "j1Map.h"
 
 ///Class Blit_Call ------------------------------
 //Constructors ========================
@@ -58,7 +59,9 @@ j1Render::j1Render() : j1Module()
 
 // Destructor
 j1Render::~j1Render()
-{}
+{
+
+}
 
 // Called before render is available
 bool j1Render::Awake(pugi::xml_node& config)
@@ -96,7 +99,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Render::Start()
 {
-	LOG("render start");
+	LOG("Render start");
 
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
@@ -139,40 +142,14 @@ bool j1Render::CleanUp()
 	return true;
 }
 
-// Load Game State
-bool j1Render::Load(pugi::xml_node& data)
-{
-	camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();
-
-	return true;
-}
-
-// Save Game State
-bool j1Render::Save(pugi::xml_node& data) const
-{
-	pugi::xml_node cam = data.append_child("camera");
-
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
-
-	return true;
-}
-
 void j1Render::SetBackgroundColor(SDL_Color color)
 {
 	background = color;
 }
 
-void j1Render::ChangeVSYNCstate(bool state)
+void j1Render::CalculateCameraViewport()
 {
-	//Choose renderer vsync related flag
-	Uint32 renderer_flag = SDL_RENDERER_PRESENTVSYNC;
-	if (!state)renderer_flag |= SDL_RENDERER_ACCELERATED;
-	
-	//Generate renderer whit the new vsync state
-	SDL_DestroyRenderer(renderer);
-	renderer = SDL_CreateRenderer(App->win->window, -1, renderer_flag);
+	camera_viewport = { -App->render->camera.x - (int)App->map->data.tile_width, -App->render->camera.y - (int)App->map->data.tile_height, App->render->camera.w + (int)App->map->data.tile_width * 2, App->render->camera.h + (int)App->map->data.tile_height * 2 };
 }
 
 bool j1Render::CallBlit(const SDL_Rect rect, const iPoint pivot, const SDL_Color color, int priority)
@@ -180,27 +157,6 @@ bool j1Render::CallBlit(const SDL_Rect rect, const iPoint pivot, const SDL_Color
 	bool ret = false;
 	blit_queue.emplace(rect, pivot, color, priority);
 	return true;
-}
-
-void j1Render::SetViewPort(const SDL_Rect& rect)
-{
-	SDL_RenderSetViewport(renderer, &rect);
-}
-
-void j1Render::ResetViewPort()
-{
-	SDL_RenderSetViewport(renderer, &viewport);
-}
-
-iPoint j1Render::ScreenToWorld(int x, int y) const
-{
-	iPoint ret;
-	int scale = App->win->GetScale();
-
-	ret.x = (x - camera.x / scale);
-	ret.y = (y - camera.y / scale);
-
-	return ret;
 }
 
 bool j1Render::Blit(const SDL_Rect * rect, const iPoint pivot, const SDL_Color * color) const
@@ -306,30 +262,34 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
 	int result = -1;
-	SDL_Point points[360];
+	SDL_Point points[720];
 
 	float factor = (float)M_PI / 180.0f;
 
 	//In case that the circle is fixed at camera coordinates
+	float angle = 0.0f;
+
 	if (!use_camera)
 	{
-		for (uint i = 0; i < 360; ++i)
+		for (uint i = 0; i < 720; ++i)
 		{
-			points[i].x = (int)(x + radius * cos(i * factor));
-			points[i].y = (int)((y + radius * sin(i * factor) * sin(x_angle)));
+			points[i].x = (int)(x + radius * cos(angle * factor));
+			points[i].y = (int)((y + radius * sin(angle * factor) * sin(x_angle)));
+			angle += 0.5f;
 		}
 	}
 	//Else if the circle is not fixed
 	else
 	{
-		for (uint i = 0; i < 360; ++i)
+		for (uint i = 0; i < 720; ++i)
 		{
-			points[i].x = (int)(x + radius * cos(i * factor)) + camera.x;
-			points[i].y = (int)((y + radius * sin(i * factor) * sin(x_angle))) + camera.y;
+			points[i].x = (int)(x + radius * cos(angle * factor)) + camera.x;
+			points[i].y = (int)((y + radius * sin(angle * factor) * sin(x_angle))) + camera.y;
+			angle += 0.5f;
 		}
 	}
 
-	result = SDL_RenderDrawPoints(renderer, points, 360);
+	result = SDL_RenderDrawPoints(renderer, points, 720);
 
 	if(result != 0)
 	{

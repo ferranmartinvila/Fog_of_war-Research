@@ -19,8 +19,8 @@ public:
 private:
 
 	iPoint				pivot = { 0,0 };
-	SDL_Rect			rect;
-	SDL_Color			color;
+	SDL_Rect			rect = { 0,0,0,0 };
+	SDL_Color			color = { 0,0,0,0 };
 	int					priority = 0;
 
 public:
@@ -41,9 +41,9 @@ class j1Render : public j1Module
 public:
 
 	j1Render();
+	~j1Render();
 
-	// Destructor
-	virtual ~j1Render();
+public:
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
@@ -59,10 +59,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Load / Save
-	bool Load(pugi::xml_node&);
-	bool Save(pugi::xml_node&) const;
-
 private:
 
 	//Priority queue to organize all the blits
@@ -70,23 +66,20 @@ private:
 
 public:
 
-	SDL_Renderer*	renderer;
+	SDL_Renderer*	renderer = nullptr;
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
+	SDL_Rect		camera_viewport;
 	SDL_Color		background;
 
 public:
 
+	//Calculate the current camera viewport used to collect the elements in camera
+	void	CalculateCameraViewport();
+
 	//Add blit call ---------
 	bool	CallBlit(const SDL_Rect rect, const iPoint pivot, const SDL_Color color, int priority = 0);
 	
-	//View port Methods ------
-	void	SetViewPort(const SDL_Rect& rect);
-	void	ResetViewPort();
-
-	//View frame change -----
-	iPoint	ScreenToWorld(int x, int y) const;
-
 	// Draw & Blit ----------
 	bool Blit(const SDL_Rect* rect, const iPoint pivot, const SDL_Color* color) const;
 	bool TileBlit(SDL_Texture* texture, int x, int y, const SDL_Rect* section);
@@ -98,9 +91,6 @@ public:
 
 	// Set background color -
 	void SetBackgroundColor(SDL_Color color);
-
-	//Active/Deactivate vsync
-	void ChangeVSYNCstate(bool state);
 
 };
 

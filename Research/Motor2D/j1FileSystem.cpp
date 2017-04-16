@@ -40,20 +40,6 @@ bool j1FileSystem::Awake(pugi::xml_node& config)
 		AddPath(path.child_value());
 	}
 
-	// Ask SDL for a write dir
-	char* write_path = SDL_GetPrefPath(App->GetOrganization(), App->GetTitle());
-
-	if(PHYSFS_setWriteDir(write_path) == 0)
-		LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
-	else
-	{
-		// We add the writing directory as a reading directory too with speacial mount point
-		LOG("Writing directory is %s\n", write_path);
-		AddPath(write_path, GetSaveDirectory());
-	}
-
-	SDL_free(write_path);
-
 	return ret;
 }
 
@@ -168,28 +154,4 @@ int close_sdl_rwops(SDL_RWops *rw)
 	RELEASE(rw->hidden.mem.base);
 	SDL_FreeRW(rw);
 	return 0;
-}
-
-// Save a whole buffer to disk
-unsigned int j1FileSystem::Save(const char* file, const char* buffer, unsigned int size) const
-{
-	unsigned int ret = 0;
-
-	PHYSFS_file* fs_file = PHYSFS_openWrite(file);
-
-	if(fs_file != NULL)
-	{
-		PHYSFS_sint64 written = PHYSFS_write(fs_file, (const void*)buffer, 1, size);
-		if(written != size)
-			LOG("File System error while writing to file %s: %s\n", file, PHYSFS_getLastError());
-		else
-			ret = (uint) written;
-
-		if(PHYSFS_close(fs_file) == 0)
-			LOG("File System error while closing file %s: %s\n", file, PHYSFS_getLastError());
-	}
-	else
-		LOG("File System error while opening file %s: %s\n", file, PHYSFS_getLastError());
-
-	return ret;
 }

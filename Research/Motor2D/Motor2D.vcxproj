@@ -77,7 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BaseEntities.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Iso_Primitives.cpp" />
     <ClCompile Include="j1EntitiesManager.cpp" />
     <ClCompile Include="j1FileSystem.cpp" />
@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Iso_Primitives.h" />
-    <ClInclude Include="BaseEntities.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="j1FileSystem.h" />
     <ClInclude Include="j1FogOfWar.h" />
     <ClInclude Include="j1Map.h" />

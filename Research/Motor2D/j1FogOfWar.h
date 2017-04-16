@@ -6,7 +6,9 @@
 #include "Quadtree.h"
 
 #define ALPHA_LIMIT 255
-#define	DIVISIONS_PER_TILE 3
+#define MID_ALPHA 180
+#define	DIVISIONS_PER_TILE 4 /*Values between 1 & 10*/
+#define RENDER_MARGIN 80
 
 enum FOG_TYPE
 {
@@ -31,22 +33,21 @@ public:
 
 private:
 
-	/*Fog Layer*/					std::vector<FOG_TYPE> fog_layer;
-	/*Fog Surface*/					SDL_Surface* fog_surface = nullptr;
-	/*Stamp to erase fog surface*/	SDL_Surface* fog_eraser = nullptr;
-	SDL_Texture* eraser = nullptr;
+	FOG_TYPE*				fog_layer = nullptr;	/*Layer that contains fog types*/
+	AlphaCell*				alpha_layer = nullptr;	/*Layer that contains fog alpha values*/
+	QuadTree<AlphaCell*>	fog_quadtree;			/*Contains the same data as the alpha layer but organized in a quadtree*/
 
-	AlphaCell* alpha_layer = nullptr;
-	uint alpha_layer_width = 0;
-	uint alpha_layer_height = 0;
-	QuadTree<AlphaCell*> fog_quadtree;
+	uint alpha_layer_width = 0;		/*Number of cells in the fog width*/
+	uint alpha_layer_height = 0;	/*Number of cells in the fog height*/
 
 public:
 
-	FOG_TYPE	GetFogID(int x, int y)const;
-	void		ClearFogZone(Circle zone);
-	void		ClearFogTile(int x, int y);
+	void		GeneratFogOfWar();
 
+	FOG_TYPE	GetFogID(int x, int y)const;
+
+	void		ClearAlphaLayer(const Circle zone, unsigned short alpha = 0);
+	void		ClearFogLayer(const Circle zone, FOG_TYPE type);
 };
 
 #endif

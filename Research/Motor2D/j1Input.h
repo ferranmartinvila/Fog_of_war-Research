@@ -3,9 +3,7 @@
 
 #include "j1Module.h"
 
-//#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
-//#define LAST_KEYS_PRESSED_BUFFER 50
 
 struct SDL_Rect;
 
@@ -70,7 +68,7 @@ public:
 
 private:
 	bool		windowEvents[WE_COUNT];
-	j1KeyState*	keyboard;
+	j1KeyState*	keyboard = nullptr;
 	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
 	int			mouse_motion_x;
 	int			mouse_motion_y;

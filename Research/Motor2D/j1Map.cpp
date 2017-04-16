@@ -7,8 +7,8 @@
 #include "j1Render.h"
 #include "j1FileSystem.h"
 #include "j1Textures.h"
-#include "j1Window.h"
 #include "j1EntitiesManager.h"
+#include "j1FogOfWar.h"
 
 #include <math.h>
 
@@ -36,19 +36,22 @@ void j1Map::Draw(bool debug)
 {
 	//Collect the tiles inside the viewport
 	std::vector<iPoint> tiles_in_view;
-	SDL_Rect viewport = { -App->render->camera.x - data.tile_width, -App->render->camera.y - data.tile_height, App->render->camera.w + data.tile_width * 2, App->render->camera.h + data.tile_height * 2};
-	map_quadtree.CollectCandidates(tiles_in_view, viewport);
+	map_quadtree.CollectCandidates(tiles_in_view, App->render->camera_viewport);
 
 	uint size = tiles_in_view.size();
 
 	//Get default tileset from default tile id
 	TileSet* tileset = GetTilesetFromTileId(DEFAULT_TILE);
+	
 	//Get default tile texture from default tile id
 	SDL_Rect r = tileset->GetTileRect(DEFAULT_TILE);
 
 	for (uint k = 0; k < size; k++)
 	{
 		iPoint map_point = MapToWorld(tiles_in_view[k].x, tiles_in_view[k].y);
+		
+		
+		if (App->fog_of_war->GetFogID(tiles_in_view[k].x, tiles_in_view[k].y) == DARK_FOG)continue;
 
 		//Blit the current tile
 		App->render->TileBlit(tileset->texture, map_point.x, map_point.y, &r);
@@ -81,20 +84,6 @@ void j1Map::Draw(bool debug)
 		}
 
 	}
-}
-
-int Properties::Get(const char* value, bool default_value) const
-{
-	std::list<Property*>::const_iterator item = list.begin();
-
-	while (item != list.end())
-	{
-		if (item._Ptr->_Myval->name == value)
-			return item._Ptr->_Myval->value;
-		item++;
-	}
-
-	return default_value;
 }
 
 TileSet* j1Map::GetTilesetFromTileId(int id) const
@@ -157,38 +146,8 @@ iPoint j1Map::WorldToMap(int x, int y) const
 	return ret;
 }
 
-void j1Map::FixPointMap(float& x, float& y)
-{
-	iPoint ret(x,y);
-	
-		if (x < ((data.width*data.tile_width) *-0.5))
-			ret.x = ((data.width*data.tile_width) *-0.5);
-		else if (x > ((data.width*data.tile_width)*0.5))
-			ret.x = ((data.width*data.tile_width)*0.5);
-		if(y<0)
-			ret.y = 0;
-		else if(y>(data.height*data.tile_height))
-			ret.y = data.height*data.tile_height;
-
-	x = ret.x;
-	y = ret.y;
-}
-
 bool j1Map::IsInMap(float x,float y) const
 {
-	/*
-	iPoint ret(x, y);
-
-	if (ret.x < ((data.width * data.tile_width) * -0.5))
-	{
-		ret.x = (data.width * data.tile_width) * -0.5;
-	}
-	else if (ret.x >((data.width * data.tile_width) * 0.5))
-	{
-		ret.x = (data.width * data.tile_width) * 0.5;
-	}
-	*/
-
 	float mid_map_height = (data.height * (data.tile_height + MARGIN)) * 0.5f;
 	float mid_map_width = (data.width * (data.tile_width)) * 0.5f;
 	float min_y = mid_map_height - ((mid_map_width - abs(x)) * 0.5f);
@@ -404,7 +363,6 @@ bool j1Map::LoadMap()
 		data.type = MAPTYPE_ISOMETRIC;
 		
 
-
 		//Define map area 
 		SDL_Rect map_area;
 		map_area.x = ((data.width) * data.tile_width) * -0.5;
@@ -435,13 +393,6 @@ bool j1Map::LoadMap()
 	}
 
 	return ret;
-}
-
-bool j1Map::UnLoadMap()
-{
-
-	return data.UnLoadLayer();
-
 }
 
 bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
@@ -566,19 +517,4 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	}
 
 	return ret;
-}
-
-bool MapData::UnLoadLayer()
-{
-
-	width = height = tile_width = tile_height = NULL;
-	background_color.r = 0;
-	background_color.g = 0;
-	background_color.b = 0;
-	background_color.a = 0;
-	type = MapTypes::MAPTYPE_UNKNOWN;
-	tilesets.clear();
-	layers.clear();
-
-	return false;
 }

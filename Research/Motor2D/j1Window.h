@@ -11,9 +11,9 @@ class j1Window : public j1Module
 public:
 
 	j1Window();
+	~j1Window();
 
-	// Destructor
-	virtual ~j1Window();
+public:
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
@@ -32,17 +32,17 @@ public:
 
 public:
 	//The window we'll be rendering to
-	SDL_Window* window;
+	SDL_Window* window = nullptr;
 
 	//The surface contained by the window
-	SDL_Surface* screen_surface;
+	SDL_Surface* screen_surface = nullptr;
 
 private:
 
 	std::string	title;
-	uint		width;
-	uint		height;
-	uint		scale;
+	uint		width = 0;
+	uint		height = 0;
+	uint		scale = 1;
 };
 
 #endif // __j1WINDOW_H__

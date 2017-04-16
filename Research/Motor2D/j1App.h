@@ -49,12 +49,6 @@ public:
 	const char* GetOrganization() const;
 	float GetDT() const;
 
-	void LoadGame(const char* file);
-	void SaveGame(const char* file) const;
-	void GetSaveGames(std::list<std::string*>& list_to_fill) const;
-
-	bool IsXMLdir(const char* dir)const;
-
 private:
 
 	// Load config file
@@ -75,9 +69,6 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
-	// Load / Save
-	bool LoadGameNow();
-	bool SavegameNow();
 
 public:
 
@@ -119,11 +110,6 @@ private:
 	std::string				title;
 	std::string				organization;
 
-	mutable bool			want_to_save = false;
-	bool					want_to_load = false;
-	std::string				load_game;
-	mutable  std::string	save_game;
-
 	j1PerfTimer			ptimer;
 	uint64				frame_count = 0;
 	j1Timer				startup_time;
@@ -135,8 +121,6 @@ private:
 	int					capped_ms = -1;
 
 	bool				want_to_quit = false;
-
-	mutable std::list<std::string*>	saved_games;
 
 public:
 

@@ -128,30 +128,15 @@ bool j1Input::PreUpdate()
 			break;
 
 		case SDL_MOUSEMOTION:
-		{
+		
 			int scale = App->win->GetScale();
 			mouse_motion_x = event.motion.xrel / scale;
 			mouse_motion_y = event.motion.yrel / scale;
 			mouse_x = event.motion.x / scale;
 			mouse_y = event.motion.y / scale;
 			break;
+		
 		}
-
-		case SDL_EventType::SDL_TEXTEDITING:
-
-			/*
-			Update the composition text.
-			Update the cursor position.
-			Update the selection length (if any).
-			*/
-			//composition = event.edit.text;
-			//cursor = event.edit.start;
-			//selection_len = event.edit.length;
-
-			break;
-
-		}
-	
 	}
 
 	return true;

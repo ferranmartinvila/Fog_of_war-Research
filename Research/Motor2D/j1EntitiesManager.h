@@ -2,7 +2,7 @@
 #define _ENTITIES_MANAGER_
 
 #include "j1Module.h"
-#include "BaseEntities.h"
+#include "Entity.h"
 #include "Quadtree.h"
 
 class j1EntitiesManager : public j1Module
