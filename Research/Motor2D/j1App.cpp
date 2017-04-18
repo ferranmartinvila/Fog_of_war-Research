@@ -43,12 +43,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(entities_manager);
 
+	AddModule(player);
+
 
 	// scene last
 	AddModule(scene);
-
-	AddModule(player);
 	AddModule(fog_of_war);
+
 
 	// render last to swap buffer
 	AddModule(render);

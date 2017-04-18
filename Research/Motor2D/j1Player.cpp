@@ -18,29 +18,6 @@ j1Player::~j1Player()
 
 }
 
-bool j1Player::Start()
-{
-	LOG("Player start");
-
-	//Player entity build -----------------------
-	player = App->entities_manager->GenerateUnit();
-	player->SetVisionRange(200);
-	player->SetEntityColor({ 255,255,25,255 });
-	player->SetSpriteSize(20, 50);
-	player->SetType(ALLY);
-	player->SetPosition(350, 280);
-	// ------------------------------------------
-
-	//Center camera at player entity ------------
-	fPoint player_pos = player->GetPosition();
-	App->render->camera.x = -player_pos.x + App->render->camera.w * 0.5;
-	App->render->camera.y = -player_pos.y + App->render->camera.h * 0.5;
-	App->render->CalculateCameraViewport();
-	// ------------------------------------------
-
-	return true;
-}
-
 bool j1Player::Update(float dt)
 {
 	//Move player entity ------------------------
@@ -86,4 +63,23 @@ bool j1Player::Update(float dt)
 	// ------------------------------------------
 
 	return true;
+}
+
+void j1Player::GeneratePlayerEntity()
+{
+	//Player entity build -----------------------
+	player = App->entities_manager->GenerateUnit();
+	player->SetVisionRange(300);
+	player->SetEntityColor({ 255,255,25,255 });
+	player->SetSpriteSize(20, 50);
+	player->SetType(ALLY);
+	player->SetPosition(350, 280);
+	// ------------------------------------------
+
+	//Center camera at player entity ------------
+	fPoint player_pos = player->GetPosition();
+	App->render->camera.x = -player_pos.x + App->render->camera.w * 0.5;
+	App->render->camera.y = -player_pos.y + App->render->camera.h * 0.5;
+	App->render->CalculateCameraViewport();
+	// ------------------------------------------
 }

@@ -15,15 +15,16 @@ public:
 
 public:
 
-	// Called before the first frame
-	bool Start();
-
 	// Called each loop iteration
 	bool Update(float dt);
 
 private:
 
 	MyEntity* player = nullptr;
+
+public:
+
+	void GeneratePlayerEntity();
 	
 };
 #endif // !_J1PLAYER_H_

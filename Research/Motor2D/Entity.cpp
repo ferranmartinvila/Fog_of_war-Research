@@ -31,7 +31,7 @@ void MyEntity::Draw()
 	else if (type == NEUTRAL && fog_type == DARK_FOG)return;
 	else if (type == ALLY)
 	{
-		App->fog_of_war->ClearAlphaLayer(vision_area);
+		App->fog_of_war->ClearAlphaLayer(vision_area, 0, true);
 	}
 
 	App->render->CallBlit(sprite.GetRect(), iPoint(-sprite.GetRect().w * 0.5, -sprite.GetRect().h ), sprite.GetColor(), -position.y);

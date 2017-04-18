@@ -6,8 +6,9 @@
 #include "Quadtree.h"
 
 #define ALPHA_LIMIT 255
-#define MID_ALPHA 180
-#define	DIVISIONS_PER_TILE 4 /*Values between 1 & 10*/
+#define MID_ALPHA 150
+#define AREA_RADIANCY 0.0			/* Values between 0 & 1 */
+#define	DIVISIONS_PER_PIXELS 60	/* Values between 1 & 70 for 60 fps */
 #define RENDER_MARGIN 80
 
 enum FOG_TYPE
@@ -39,14 +40,18 @@ private:
 
 	uint alpha_layer_width = 0;		/*Number of cells in the fog width*/
 	uint alpha_layer_height = 0;	/*Number of cells in the fog height*/
+	
+	uint alpha_cell_size = 0;
+
+	float light_blow = 0.0f;
 
 public:
 
-	void		GeneratFogOfWar();
+	void		GenerateFogOfWar();
 
 	FOG_TYPE	GetFogID(int x, int y)const;
 
-	void		ClearAlphaLayer(const Circle zone, unsigned short alpha = 0);
+	void		ClearAlphaLayer(const Circle zone, unsigned short alpha = 0, bool radiancy = false);
 	void		ClearFogLayer(const Circle zone, FOG_TYPE type);
 };
 

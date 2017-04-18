@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1EntitiesManager.h"
 #include "j1FogOfWar.h"
+#include "j1Player.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -29,8 +30,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	}
 
-	bool ret = true;
-	return ret;
+	return true;
 }
 
 // Called before the first frame
@@ -39,9 +39,9 @@ bool j1Scene::Start()
 	//Map build -------------------------------------------
 	Load_Map();
 	// ----------------------------------------------------
-	
+
 	//Fog of War build ------------------------------------
-	App->fog_of_war->GeneratFogOfWar();
+	App->fog_of_war->GenerateFogOfWar();
 	// ----------------------------------------------------
 
 	//Generate Scene Ally , Neutral & Enemy entities ------
@@ -59,7 +59,7 @@ bool j1Scene::Start()
 	entity->SetEntityColor({ 0,255,0,255 });
 	entity->SetSpriteSize(15, 30);
 	entity->SetType(ENTITY_TYPE::ALLY);
-	entity->SetVisionRange(150);
+	entity->SetVisionRange(250);
 	entity->SetPosition(location.x, location.y);
 	//Enemy entity definition ---------
 	entity = App->entities_manager->GenerateUnit();
@@ -69,6 +69,10 @@ bool j1Scene::Start()
 	entity->SetType(ENTITY_TYPE::ENEMY);
 	entity->SetVisionRange(100);
 	entity->SetPosition(location.x, location.y);
+	// ----------------------------------------------------
+
+	// Generate playe entity ------------------------------
+	App->player->GeneratePlayerEntity();
 	// ----------------------------------------------------
 
 	return true;

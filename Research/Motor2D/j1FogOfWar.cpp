@@ -26,7 +26,7 @@ bool j1FogOfWar::Start()
 bool j1FogOfWar::PostUpdate()
 {
 	//Paste fog zone at the screen surface to render it
-	//fog_quadtree.Draw();
+	fog_quadtree.Draw();
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 	{
@@ -51,16 +51,23 @@ bool j1FogOfWar::PostUpdate()
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	{
+		light_blow += 0.05;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		light_blow -= 0.05;
+	}
+
+
 	if (App->debug_mode)return true;
 
 	std::vector<AlphaCell*> in_view_cells;
-	uint divided_tile_width = floor(App->map->data.tile_width / DIVISIONS_PER_TILE);
-	uint divided_tile_height = floor((App->map->data.tile_height + MARGIN) / DIVISIONS_PER_TILE);
-
 	uint size = fog_quadtree.CollectCandidates(in_view_cells, App->render->camera_viewport);
 	for (uint k = 0; k < size; k++)
 	{
-		App->render->FogBlit(in_view_cells[k]->position, divided_tile_width, divided_tile_height, in_view_cells[k]->alpha);
+		App->render->FogBlit(in_view_cells[k]->position, alpha_cell_size, in_view_cells[k]->alpha);
 		
 		if (in_view_cells[k]->alpha < MID_ALPHA)in_view_cells[k]->alpha = MID_ALPHA;
 	}
@@ -69,25 +76,29 @@ bool j1FogOfWar::PostUpdate()
 }
 
 //Functionality =======================
-void j1FogOfWar::GeneratFogOfWar()
+void j1FogOfWar::GenerateFogOfWar()
 {
-	//Calculate fog alpha layer size with the map data & the divisions per tile
-	alpha_layer_width = App->map->data.width * DIVISIONS_PER_TILE;
-	alpha_layer_height = App->map->data.height * DIVISIONS_PER_TILE;
-	int mid_map_lenght = (App->map->data.width * App->map->data.tile_width) * -0.5;
+	//Calculate alpha cells size
+	alpha_cell_size = ceil(1000 / DIVISIONS_PER_PIXELS);
+
+	//Check if alpha cell size is a multiple of 1000 to don't have pixels without fog
+	while (1000 % (alpha_cell_size - MARGIN) != 0)alpha_cell_size++;
+
+	//Calculate fog alpha layer size with the map data & alpha cells size
+	alpha_layer_width = ceil((App->map->data.width * (App->map->data.tile_width + MARGIN)) / alpha_cell_size);
+
+	alpha_layer_height = ceil((App->map->data.height * (App->map->data.tile_height + MARGIN)) / (alpha_cell_size - MARGIN));
+
+	int mid_map_lenght = ceil(App->map->data.width * (App->map->data.tile_width)) * -0.5;
 
 	//Build fog quadtree boundaries & limit
-	fog_quadtree.SetBoundaries({ mid_map_lenght,0,(int)App->map->data.width * (int)App->map->data.tile_width,((int)App->map->data.height + MARGIN) * (int)App->map->data.tile_height });
-	fog_quadtree.SetMaxObjects(DIVISIONS_PER_TILE * 20);
+	fog_quadtree.SetBoundaries({ (int)mid_map_lenght,0,(int)alpha_cell_size * (int)alpha_layer_width,(int)alpha_cell_size * (int)alpha_layer_height });
+	fog_quadtree.SetMaxObjects(DIVISIONS_PER_PIXELS * 10);
 	fog_quadtree.SetDebugColor({ 255,255,0,255 });
 
 	//Build fog alpha layer
 	//Allocate alpha layer cells
 	alpha_layer = new AlphaCell[alpha_layer_width * alpha_layer_height];
-
-	//Set cells position
-	float divided_tile_width = App->map->data.tile_width / DIVISIONS_PER_TILE;
-	float divided_tile_height = (App->map->data.tile_height + MARGIN) / DIVISIONS_PER_TILE;
 
 	for (uint y = 0; y < alpha_layer_height; y++)
 	{
@@ -95,9 +106,9 @@ void j1FogOfWar::GeneratFogOfWar()
 		{
 			AlphaCell* current_cell = &alpha_layer[y * alpha_layer_width + x];
 
-			current_cell->position = { (int)ceil(mid_map_lenght + (int)divided_tile_width * (int)x), (int)ceil((int)divided_tile_height * (int)y) };
-			current_cell->alpha = 255;
-			if (!fog_quadtree.Insert(current_cell, &iPoint(current_cell->position.x + divided_tile_width * 0.5, current_cell->position.y + divided_tile_height * 0.5)))
+			current_cell->position = { (int)ceil(mid_map_lenght + (int)alpha_cell_size * (int)x), (int)ceil((int)alpha_cell_size * (int)y) };
+			current_cell->alpha = ALPHA_LIMIT;
+			if (!fog_quadtree.Insert(current_cell, &iPoint(current_cell->position.x + alpha_cell_size * 0.5, current_cell->position.y + alpha_cell_size * 0.5)))
 			{
 				LOG("Fail");
 			}
@@ -121,15 +132,30 @@ FOG_TYPE j1FogOfWar::GetFogID(int x, int y) const
 	return fog_layer[y * App->map->data.width + x];
 }
 
-void j1FogOfWar::ClearAlphaLayer(const Circle zone, unsigned short alpha)
+void j1FogOfWar::ClearAlphaLayer(const Circle zone, unsigned short alpha, bool radiancy)
 {
 	std::vector<AlphaCell*> fog_cells;
 	uint size = fog_quadtree.CollectCandidates(fog_cells, zone);
 
 	//Clear fog in vision area
-	for (uint k = 0; k < size; k++)
+	if (!radiancy)
 	{
-		if(fog_cells[k]->alpha > alpha)fog_cells[k]->alpha = alpha;
+		for (uint k = 0; k < size; k++)
+		{
+			if (fog_cells[k]->alpha > alpha)fog_cells[k]->alpha = alpha;
+		}
+	}
+	else
+	{
+		for (uint k = 0; k < size; k++)
+		{
+			float x_rad_percent = abs(((float)(fog_cells[k]->position.x) - (float)(zone.GetPosition().x))) / zone.GetRad();
+			float y_rad_percent = abs(((fog_cells[k]->position.y) - (zone.GetPosition().y))) / (zone.GetRad() * sin(zone.GetXAngle()));
+			float rad_percent = (x_rad_percent + y_rad_percent) * 0.5;
+			rad_percent -= rad_percent * light_blow;
+
+			if (fog_cells[k]->alpha > ALPHA_LIMIT * rad_percent)fog_cells[k]->alpha = ALPHA_LIMIT * rad_percent;
+		}
 	}
 
 }
