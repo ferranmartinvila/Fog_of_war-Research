@@ -19,13 +19,6 @@ j1FogOfWar::~j1FogOfWar()
 }
 
 //Game Loop ===========================
-bool j1FogOfWar::Start()
-{
-	light_blow = AREA_RADIANCY;
-
-	return true;
-}
-
 bool j1FogOfWar::PostUpdate()
 {
 	//Paste fog zone at the screen surface to render it
@@ -56,23 +49,6 @@ bool j1FogOfWar::PostUpdate()
 			entity._Ptr->_Myval->SetPosition(loc.x, loc.y);
 
 			entity++;
-		}
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		glow_mode = !glow_mode;
-	}
-
-	if (glow_mode)
-	{
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
-		{
-			light_blow += 0.05;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
-		{
-			light_blow -= 0.05;
 		}
 	}
 
@@ -108,7 +84,7 @@ void j1FogOfWar::GenerateFogOfWar()
 
 	//Build fog quadtree boundaries & limit
 	fog_quadtree.SetBoundaries({ (int)mid_map_lenght, 0, (int)alpha_cell_size * (int)alpha_layer_width, (int)alpha_cell_size * (int)alpha_layer_height });
-	fog_quadtree.SetMaxObjects(DIVISIONS_PER_PIXELS * 50);
+	fog_quadtree.SetMaxObjects(DIVISIONS_PER_PIXELS);
 	fog_quadtree.SetDebugColor({ 255,255,0,255 });
 
 	//Build fog alpha layer
@@ -147,32 +123,15 @@ FOG_TYPE j1FogOfWar::GetFogID(int x, int y) const
 	return fog_layer[y * App->map->data.width + x];
 }
 
-void j1FogOfWar::ClearAlphaLayer(const Circle zone, unsigned short alpha, bool radiancy)
+void j1FogOfWar::ClearAlphaLayer(const Circle zone, unsigned short alpha)
 {
 	std::vector<AlphaCell*> fog_cells;
 	uint size = fog_quadtree.CollectCandidates(fog_cells, zone);
 
-	//Clear fog in vision area
-	if (!radiancy)
+	for (uint k = 0; k < size; k++)
 	{
-		for (uint k = 0; k < size; k++)
-		{
-			if (fog_cells[k]->alpha > alpha)fog_cells[k]->alpha = alpha;
-		}
+		if (fog_cells[k]->alpha > alpha)fog_cells[k]->alpha = alpha;
 	}
-	else
-	{
-		for (uint k = 0; k < size; k++)
-		{
-			float x_rad_percent = abs(((float)(fog_cells[k]->position.x) - (float)(zone.GetPosition().x))) / zone.GetRad();
-			float y_rad_percent = abs(((fog_cells[k]->position.y) - (zone.GetPosition().y))) / (zone.GetRad() * sin(zone.GetXAngle()));
-			float rad_percent = (x_rad_percent + y_rad_percent) * 0.5;
-			rad_percent -= rad_percent * light_blow;
-
-			if (fog_cells[k]->alpha > ALPHA_LIMIT * rad_percent)fog_cells[k]->alpha = ALPHA_LIMIT * rad_percent;
-		}
-	}
-
 }
 
 void j1FogOfWar::ClearFogLayer(const Circle zone, FOG_TYPE type)

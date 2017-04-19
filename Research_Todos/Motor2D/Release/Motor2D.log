@@ -1,141 +1,48 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (Age of Empires II.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Entity.cpp
-Entity.cpp(27): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-Entity.cpp(37): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
-Entity.cpp(37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-Entity.cpp(92): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-Entity.cpp(95): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
-Entity.cpp(96): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(318): warning C4838: conversion from 'const float' to 'int' requires a narrowing conversion
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(316): note: while compiling class template member function 'bool m_AABB<DATA_TYPE>::Insert(DATA_TYPE,const fPoint *)'
-          with
-          [
-              DATA_TYPE=MyEntity *
-          ]
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(760): note: see reference to function template instantiation 'bool m_AABB<DATA_TYPE>::Insert(DATA_TYPE,const fPoint *)' being compiled
-          with
-          [
-              DATA_TYPE=MyEntity *
-          ]
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(801): note: see reference to class template instantiation 'm_AABB<DATA_TYPE>' being compiled
-          with
-          [
-              DATA_TYPE=MyEntity *
-          ]
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(798): note: while compiling class template member function 'int m_QuadTree<MyEntity *>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &) const'
-          with
-          [
-              DATA_TYPE=MyEntity *,
-              _Ty=MyEntity *
-          ]
-  Entity.cpp(49): note: see reference to function template instantiation 'int m_QuadTree<MyEntity *>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &) const' being compiled
-          with
-          [
-              DATA_TYPE=MyEntity *,
-              _Ty=MyEntity *
-          ]
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\j1EntitiesManager.h(35): note: see reference to class template instantiation 'm_QuadTree<MyEntity *>' being compiled
-c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(318): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
-  Iso_Primitives.cpp
-Iso_Primitives.cpp(108): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-Iso_Primitives.cpp(109): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-Iso_Primitives.cpp(120): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-Iso_Primitives.cpp(121): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-Iso_Primitives.cpp(124): warning C4806: '^': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
-Iso_Primitives.cpp(124): warning C4554: '^': check operator precedence for possible error; use parentheses to clarify precedence
-Iso_Primitives.cpp(124): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-Iso_Primitives.cpp(130): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-Iso_Primitives.cpp(132): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-Iso_Primitives.cpp(133): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-Iso_Primitives.cpp(134): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-Iso_Primitives.cpp(141): warning C4018: '<=': signed/unsigned mismatch
-Iso_Primitives.cpp(147): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-Iso_Primitives.cpp(149): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-Iso_Primitives.cpp(150): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-  j1EntitiesManager.cpp
-  j1FileSystem.cpp
   j1FogOfWar.cpp
-j1FogOfWar.cpp(24): warning C4305: '=': truncation from 'double' to 'float'
-j1FogOfWar.cpp(71): warning C4305: '+=': truncation from 'double' to 'float'
-j1FogOfWar.cpp(75): warning C4305: '-=': truncation from 'double' to 'float'
-j1FogOfWar.cpp(85): warning C4244: 'argument': conversion from 'unsigned short' to 'Uint8', possible loss of data
-j1FogOfWar.cpp(97): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
-j1FogOfWar.cpp(103): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
-j1FogOfWar.cpp(105): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
-j1FogOfWar.cpp(107): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-j1FogOfWar.cpp(126): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
-j1FogOfWar.cpp(169): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-j1FogOfWar.cpp(172): warning C4244: '=': conversion from 'float' to 'unsigned short', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(232): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(212): note: while compiling class template member function 'int AABB<DATA_TYPE>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &)'
+j1FogOfWar.cpp(61): warning C4244: 'argument': conversion from 'unsigned short' to 'Uint8', possible loss of data
+j1FogOfWar.cpp(73): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
+j1FogOfWar.cpp(79): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
+j1FogOfWar.cpp(81): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
+j1FogOfWar.cpp(83): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+j1FogOfWar.cpp(102): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
+c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(232): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(212): note: while compiling class template member function 'int AABB<DATA_TYPE>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &)'
           with
           [
               DATA_TYPE=iPoint,
               _Ty=iPoint
           ]
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(701): note: see reference to function template instantiation 'int AABB<DATA_TYPE>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &)' being compiled
+  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(701): note: see reference to function template instantiation 'int AABB<DATA_TYPE>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &)' being compiled
           with
           [
               DATA_TYPE=iPoint,
               _Ty=iPoint
           ]
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(700): note: see reference to class template instantiation 'AABB<DATA_TYPE>' being compiled
+  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(700): note: see reference to class template instantiation 'AABB<DATA_TYPE>' being compiled
           with
           [
               DATA_TYPE=iPoint
           ]
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\Quadtree.h(697): note: while compiling class template member function 'int QuadTree<iPoint>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &) const'
+  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(697): note: while compiling class template member function 'int QuadTree<iPoint>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &) const'
           with
           [
               DATA_TYPE=iPoint,
               _Ty=iPoint
           ]
-  j1FogOfWar.cpp(182): note: see reference to function template instantiation 'int QuadTree<iPoint>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &) const' being compiled
+  j1FogOfWar.cpp(141): note: see reference to function template instantiation 'int QuadTree<iPoint>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &) const' being compiled
           with
           [
               DATA_TYPE=iPoint,
               _Ty=iPoint
           ]
-  c:\users\ferra\desktop\fog_of_war-research\research_solution\motor2d\j1Map.h(139): note: see reference to class template instantiation 'QuadTree<iPoint>' being compiled
-  j1Main.cpp
-  j1App.cpp
-j1App.cpp(230): warning C4018: '<': signed/unsigned mismatch
-j1App.cpp(226): warning C4477: 'sprintf_s' : format string '%lu' requires an argument of type 'unsigned long', but variadic argument 6 has type 'uint64'
-  j1App.cpp(226): note: consider using '%llu' in the format string
-  j1App.cpp(226): note: consider using '%I64u' in the format string
-  j1Input.cpp
-  j1Map.cpp
-j1Map.cpp(65): warning C4244: 'initializing': conversion from 'double' to 'uint', possible loss of data
-j1Map.cpp(66): warning C4244: 'initializing': conversion from 'double' to 'uint', possible loss of data
-j1Map.cpp(112): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-j1Map.cpp(122): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-j1Map.cpp(123): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-j1Map.cpp(130): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
-j1Map.cpp(138): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-j1Map.cpp(139): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-j1Map.cpp(368): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  j1PerfTimer.cpp
-  j1Player.cpp
-j1Player.cpp(55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-j1Player.cpp(56): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-j1Player.cpp(78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-j1Player.cpp(83): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-j1Player.cpp(84): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  j1Scene.cpp
-j1Scene.cpp(55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-j1Scene.cpp(63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-j1Scene.cpp(71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  j1Timer.cpp
-  p2Log.cpp
-  j1Render.cpp
-j1Render.cpp(176): warning C4838: conversion from 'uint' to 'int' requires a narrowing conversion
-  j1Textures.cpp
-  j1Window.cpp
-  pugixml.cpp
-     Creating library C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Solution\Release\Fog of War.lib and object C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Solution\Release\Fog of War.exp
+  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\j1Map.h(139): note: see reference to class template instantiation 'QuadTree<iPoint>' being compiled
+     Creating library C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Todos\Release\Fog of War.lib and object C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Todos\Release\Fog of War.exp
   Generating code
-  All 1423 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  1 of 1421 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 physfs.lib(physfs.obj) : warning LNK4049: locally defined symbol _sprintf imported
-  Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Solution\Release\Fog of War.exe
-  Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Solution\Release\Fog of War.pdb (Full PDB)
+  Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Todos\Release\Fog of War.exe
+  Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Todos\Release\Fog of War.pdb (Full PDB)
