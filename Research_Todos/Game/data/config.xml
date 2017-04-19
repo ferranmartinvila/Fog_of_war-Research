@@ -1,0 +1,46 @@
+<!-- Config file for the game -->
+
+<config>
+  
+  <app framerate_cap="">
+    <title>Fog of War Research</title>
+    <organization>Me</organization>
+    <c_vars>
+      <c_var name = "maxfps"	description = "Limit Max framerate"	value = "60"	type = "integrer"	only_read="false"/>
+    </c_vars>
+  </app>
+	
+  <renderer>
+    <vsync value="false"/>
+    <c_vars>
+      <c_var name = "vsync"	description = "Active/Desactive vsync"	value = "0"	type = "boolean"	only_read="true"/>
+    </c_vars>
+  </renderer>
+
+  <window>
+    <resolution width="1280" height="720" scale="1"/>
+    <fullscreen value="false"/>
+    <borderless value="false"/>
+    <resizable value="false"/>
+    <fullscreen_window value="false"/>
+    <c_vars>
+    </c_vars>
+  </window>
+
+  <file_system>
+    <path>data</path>
+    <c_vars>
+    </c_vars>
+  </file_system>
+
+  <map>
+    <folder>maps/</folder>
+    <c_vars>
+    </c_vars>
+  </map>
+
+  <scene>
+  	<map_folder>SimpleMap.tmx</map_folder>
+  </scene>
+  
+</config>
