@@ -1,47 +1,19 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (Age of Empires II.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  j1FogOfWar.cpp
-j1FogOfWar.cpp(61): warning C4244: 'argument': conversion from 'unsigned short' to 'Uint8', possible loss of data
-j1FogOfWar.cpp(73): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
-j1FogOfWar.cpp(79): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
-j1FogOfWar.cpp(81): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
-j1FogOfWar.cpp(83): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-j1FogOfWar.cpp(102): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
-c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(232): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(212): note: while compiling class template member function 'int AABB<DATA_TYPE>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &)'
-          with
-          [
-              DATA_TYPE=iPoint,
-              _Ty=iPoint
-          ]
-  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(701): note: see reference to function template instantiation 'int AABB<DATA_TYPE>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &)' being compiled
-          with
-          [
-              DATA_TYPE=iPoint,
-              _Ty=iPoint
-          ]
-  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(700): note: see reference to class template instantiation 'AABB<DATA_TYPE>' being compiled
-          with
-          [
-              DATA_TYPE=iPoint
-          ]
-  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\Quadtree.h(697): note: while compiling class template member function 'int QuadTree<iPoint>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &) const'
-          with
-          [
-              DATA_TYPE=iPoint,
-              _Ty=iPoint
-          ]
-  j1FogOfWar.cpp(141): note: see reference to function template instantiation 'int QuadTree<iPoint>::CollectCandidates(std::vector<DATA_TYPE,std::allocator<_Ty>> &,const Circle &) const' being compiled
-          with
-          [
-              DATA_TYPE=iPoint,
-              _Ty=iPoint
-          ]
-  c:\users\ferra\desktop\fog_of_war-research\research_todos\motor2d\j1Map.h(139): note: see reference to class template instantiation 'QuadTree<iPoint>' being compiled
+  j1Map.cpp
+j1Map.cpp(68): warning C4244: 'initializing': conversion from 'double' to 'uint', possible loss of data
+j1Map.cpp(69): warning C4244: 'initializing': conversion from 'double' to 'uint', possible loss of data
+j1Map.cpp(115): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+j1Map.cpp(125): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+j1Map.cpp(126): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+j1Map.cpp(133): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+j1Map.cpp(141): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+j1Map.cpp(142): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+j1Map.cpp(371): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
      Creating library C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Todos\Release\Fog of War.lib and object C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Todos\Release\Fog of War.exp
   Generating code
-  1 of 1421 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  3 of 1313 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 physfs.lib(physfs.obj) : warning LNK4049: locally defined symbol _sprintf imported
   Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Research_Todos\Release\Fog of War.exe

@@ -60,7 +60,12 @@ bool j1Player::Update(float dt)
 
 
 	// Check player vision area -----------------
-	player->CheckVisionArea();
+
+	// TODO 6:	Make player check his vision area
+	//			Here you only need to call CheckVisionArea player entity method
+
+	// player->CheckVisionArea();
+
 	// ------------------------------------------
 
 	return true;

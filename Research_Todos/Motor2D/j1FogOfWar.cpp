@@ -24,6 +24,7 @@ bool j1FogOfWar::PostUpdate()
 	//Paste fog zone at the screen surface to render it
 	//fog_quadtree.Draw();
 
+	/*
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		for (uint y = 0; y < alpha_layer_height; y++)
@@ -51,17 +52,33 @@ bool j1FogOfWar::PostUpdate()
 			entity++;
 		}
 	}
+	/*
 
 	if (App->debug_mode)return true;
 
+	// TODO 4:	Draw alpha layer!
+	//			Collect the candidates of the fog_quadtree to get the alpha cells in camera.
+	//			Iterate the filled vector and call FogBlit method from render module.
+	//			The cell size is the size of the cell walls in pixel calculated when the fog is generated.
+
+	/*
 	std::vector<AlphaCell*> in_view_cells;
 	uint size = fog_quadtree.CollectCandidates(in_view_cells, App->render->camera_viewport);
 	for (uint k = 0; k < size; k++)
 	{
 		App->render->FogBlit(in_view_cells[k]->position, alpha_cell_size, in_view_cells[k]->alpha);
 		
-		if (in_view_cells[k]->alpha < MID_ALPHA)in_view_cells[k]->alpha = MID_ALPHA;
+
 	}
+	*/
+
+	// TODO 8:	Update alpha layer! 
+	//			Check if there's any alpha cell in camera with a higher value than MID_ALPHA 
+	// 			If theres one equal its alpha value to MID_ALPHA
+	// 			More Info: https://github.com/ferranmartinvila/Fog_of_war-Research
+
+
+	//if (in_view_cells[k]->alpha < MID_ALPHA)in_view_cells[k]->alpha = MID_ALPHA;
 
 	return true;
 }
