@@ -51,7 +51,8 @@ void j1Map::Draw(bool debug)
 		iPoint world_loc = MapToWorld(tiles_in_view[k].x, tiles_in_view[k].y);
 		
 		// TODO 2:	Map Optimization!
-		//			Get the FOG_TYPE of the current tile.
+		//			Call the improved GetFogID method here to get tile FOG_TYPE.
+		//			The tiles_in_view vector are map coordinates so you can pass them to the GetFogID method widowth transform. 
 		//			If the FOG_TYPE is DARK_FOG the tile is covered of opaque fog so its not necessary to draw it.
 
 		//if (App->fog_of_war->GetFogID(tiles_in_view[k].x, tiles_in_view[k].y) == DARK_FOG)continue;

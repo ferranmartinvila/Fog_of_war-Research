@@ -19,8 +19,8 @@ struct TreeItem
 	TreeItem() {}
 	TreeItem(const DATA_TYPE& data, const iPoint& location) : data(data), location(location) {}
 
-	iPoint location = { 0,0 };
-	DATA_TYPE data = NULL;
+	iPoint		location = { 0,0 };
+	DATA_TYPE	data = NULL;
 
 	bool operator == (const TreeItem& target)
 	{
@@ -635,9 +635,9 @@ public:
 
 private:
 
-	AABB<DATA_TYPE>*		root = nullptr;
-	uint		max_objects = 0;
-	SDL_Color	color = { 255,255,255,255 };
+	AABB<DATA_TYPE>*	root = nullptr;
+	uint				max_objects = 0;
+	SDL_Color			color = { 255,255,255,255 };
 
 public:
 

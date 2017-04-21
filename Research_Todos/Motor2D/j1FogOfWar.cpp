@@ -116,14 +116,18 @@ void j1FogOfWar::GenerateFogOfWar()
 
 			current_cell->position = { (int)ceil(mid_map_lenght + (int)alpha_cell_size * (int)x), (int)ceil((int)alpha_cell_size * (int)y) };
 			current_cell->alpha = ALPHA_LIMIT;
-			if (!fog_quadtree.Insert(current_cell, &iPoint(current_cell->position.x + alpha_cell_size * 0.5, current_cell->position.y + alpha_cell_size * 0.5)))
-			{
-				LOG("Fail");
-			}
+			fog_quadtree.Insert(current_cell, &iPoint(current_cell->position.x + alpha_cell_size * 0.5, current_cell->position.y + alpha_cell_size * 0.5));
 		}
 	}
 
 	//Build fog type layer
+	
+	// TODO 1:	Create fog layer!
+	//			Allocate an array of FOG_TYPE for the fog layer.
+	//			Array size is the same as a map layer so get map width and map height from App->map.data
+	//			Iterate the allocated array and fill it with DARK_FOG type.
+
+	/*
 	fog_layer = new FOG_TYPE[App->map->data.width * App->map->data.height];
 
 	for (uint y = 0; y < App->map->data.height; y++)
@@ -133,11 +137,17 @@ void j1FogOfWar::GenerateFogOfWar()
 			fog_layer[y * App->map->data.width + x] = DARK_FOG;
 		}
 	}
+	*/
 }
 
 FOG_TYPE j1FogOfWar::GetFogID(int x, int y) const
 {
-	return fog_layer[y * App->map->data.width + x];
+	// TODO 2:	Map optimization
+	//			Improve this function to get the FOG_TYPE of the correct map tile
+
+	return NO_FOG;
+
+	// fog_layer[y * App->map->data.width + x];
 }
 
 void j1FogOfWar::ClearAlphaLayer(const Circle zone, unsigned short alpha)
@@ -159,7 +169,8 @@ void j1FogOfWar::ClearFogLayer(const Circle zone, FOG_TYPE type)
 
 	for (uint k = 0; k < size; k++)
 	{
-		fog_layer[tiles_in[k].y * App->map->data.width + tiles_in[k].x] = type;
+		// TODO 1:	Discommment this when TODO 1 is done!
+		// fog_layer[tiles_in[k].y * App->map->data.width + tiles_in[k].x] = type;
 	}
 
 }
