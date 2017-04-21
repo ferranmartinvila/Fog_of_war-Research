@@ -127,7 +127,26 @@
 <img src="Research_docs/Todo%203/entity_yes.gif"/>
 </ul>
 
-<h2> TODO 4</h2>
+<h2> TODO 4: Update alpha layer! </h2>
+<ul>
+<p>Alpha layer is built in the GenerateFogOfWar method, and is a huge array of AlphaCells that look like this:</p>
+
+``` c++
+class AlphaCell
+{
+  iPoint          position;
+  unsigned short  alpha;
+};
+```
+
+<p>Collect the candidates of the fog_quadtree to get the alpha cells in camera.</p>
+<p>CollectCandidates quadtree method fills the vector you pass with the alpha cells inside the specified area.</p>
+<p>Iterate the filled vector and call FogBlit method from render module.</p>
+<p>The cell size is the size of the AlphaCell walls in pixels, calculated when the fog alpha layer is generated. The variable name is alpha_cell_size.</p>
+<h3>Before</h3>
+<img src="Research_docs/todo_4_no_draw.png"/>
+<h3>After</h3>
+<img src="Research_docs/todo_5_dark.png"/>
 </ul>
 
 
