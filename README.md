@@ -1,9 +1,10 @@
 <h1> Fog of War Research </h1>
 
-<p>Visits</p>
-<p>Count Here</p>
+<h4>Visits</h4>
+<script type="text/javascript" src="https://counter3.fcs.ovh/private/counter.js?c=ulymtan43z818x2gxpkb2m4jx6rlhtxx"></script>
+<noscript><a href="https://www.freecounterstat.com" title="website counters"><img src="https://counter3.fcs.ovh/private/freecounterstat.php?c=ulymtan43z818x2gxpkb2m4jx6rlhtxx" border="0" title="website counters" alt="website counters"></a></noscript>
 
-<h3> Index </h3>
+<h2> Index </h2>
 <ul>
 <li> <a href="#INTRO"> Introduction </a> </li>
 <li> <a href="#CONCEPT"> Concept </a> </li>
@@ -95,7 +96,7 @@
 <p>Ok we have the material, let’s work with it!</p>
 
 
-<h2> TODO 1: Create the fog layer! </h2>
+<h2 id="TODO_1"> TODO 1: Create the fog layer! </h2>
 <ul>
 <p>Allocate an array of FOG_TYPE for the fog_layer in the fog of war module.</p>
 <p>Array size is the same as a map layer, so get map width and map height from App->map.data .</p>
@@ -103,7 +104,7 @@
 <p>When all the past objectives are cleared uncomment the code of ClearFogLayer method in fog of war module.</p>
 <p>This first TODO don't have a visual output so let's do the second to check it.</p>
 </ul>
-<h2> TODO 2: Map optimization! </h2>
+<h2 id="TODO_2"> TODO 2: Map optimization! </h2>
 <ul>
 <p>Improve the GetFogID method in fog of war module, to get the FOG_TYPE of the map tiles.</p>
 <p>When the GetFogID method is working, call it in the map draw method to check the tiles FOG_TYPE.</p>
@@ -114,7 +115,7 @@
 <h3>After</h3>
 <img src="Research_docs/Todo%203/entity_no.gif"/>
 </ul>
-<h2> TODO 3: Entities optimization!</h2>
+<h2  id="TODO_3"> TODO 3: Entities optimization!</h2>
 <ul>
 <p>Improve the entity Draw method to draw the entity only when is necessary.</p>
 <p>Use the fog_type variable to get the FOG_TYPE in the entity coordinates.</p>
@@ -130,7 +131,7 @@
 <img src="Research_docs/Todo%203/entity_yes.gif"/>
 </ul>
 
-<h2> TODO 4: Update alpha layer! </h2>
+<h2 id="TODO_4"> TODO 4: Update alpha layer! </h2>
 <ul>
 <p>Alpha layer is built in the GenerateFogOfWar method, and is a huge array of AlphaCells that look like this:</p>
 
@@ -153,7 +154,7 @@ class AlphaCell
 <img src="Research_docs/todo_5_dark.png"/>
 </ul>
 
-<h2> TODO 5: Make ally entities clear alpha layer! </h2>
+<h2 id="TODO_5"> TODO 5: Make ally entities clear alpha layer! </h2>
 <ul>
 <p>In entity draw method check if the entity is an ally.</p>
 <p>If is an ally, clear alpha layer around vision area with 0 alpha value. </p>
@@ -163,7 +164,7 @@ class AlphaCell
 <h3>After</h3>
 <img src="Research_docs/todo_5_light.png"/>
 </ul>
-<h2>TODO 6: Make player check his vision area!</h2>
+<h2 id="TODO_6"> TODO 6: Make player check his vision area!</h2>
 <ul>
 <p>Fill CheckVisionArea entity method and call it from player update.</p>
 <p>Use the public entities quadtree from the entities manager to collect the candidates inside the vision area.</p>
@@ -173,7 +174,7 @@ class AlphaCell
 <img src="Research_docs/todo_6_in.png"/>
 </ul>
 
-<h2>TODO 7: Clear fog area when a neutral entity is detected!</h2>
+<h2 id="TODO_7"> TODO 7: Clear fog area when a neutral entity is detected!</h2>
 <ul>
 <p>Iterate the entities collected in the last TODO and check if there’s a neutral entity.</p>
 <p>If there’s one, clear alpha layer around its vision area with MID_ALPHA value. Is the same procees of TODO 5.</p>
@@ -185,7 +186,7 @@ class AlphaCell
 <img src="Research_docs/Todo%207/pop_gif.gif"/>
 </ul>
 
-<h2>TODO 8: Update alpha layer!</h2>
+<h2 id="TODO_8"> TODO 8: Update alpha layer!</h2>
 <ul>
 <p>To update alpha layer, you just need to check if there’s any alpha cell in camera with a higher value than the MID_ALPHA value.</p>
 <p>If theres one, equal its alpha value to MID_ALPHA.</p>
