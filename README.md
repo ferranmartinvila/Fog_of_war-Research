@@ -134,6 +134,7 @@
 ``` c++
 class AlphaCell
 {
+  public:
   iPoint          position;
   unsigned short  alpha;
 };
@@ -149,6 +150,64 @@ class AlphaCell
 <img src="Research_docs/todo_5_dark.png"/>
 </ul>
 
-
+<h2> TODO 5: Make ally entities clear alpha layer! </h2>
+<ul>
+<p>In entity draw method check if the entity is an ally.</p>
+<p>If is an ally, clear alpha layer around vision area with 0 alpha value. </p>
+<p>To clear alpha layer use ClearAlphaLayer method from fog of war module.</p>
+<h3>Before</h3>
+<img src="Research_docs/todo_5_dark.png"/>
+<h3>After</h3>
+<img src="Research_docs/todo_5_light.png"/>
 </ul>
+<h2>TODO 6: Make player check his vision area!</h2>
+<ul>
+<p>Fill CheckVisionArea entity method and call it from player update.</p>
+<p>Use the public entities quadtree from the entities manager to collect the candidates inside the vision area.</p>
+<p>CollectCandidates quadtree method fills the vector you pass with the entities inside the specified area.</p>
+<p>Check the CollectCandidates method used in the TODO 4 to get a reference.</p>
+<p>This TODO don't have a visual output but you can use LOG to print something when an entity enter the player area.</p>
+<img src="Research_docs/todo_6_in.png"/>
+</ul>
+
+<h2>TODO 7: Clear fog area when a neutral entity is detected!</h2>
+<ul>
+<p>Iterate the entities collected in the last TODO and check if there’s a neutral entity.</p>
+<p>If there’s one, clear alpha layer around its vision area with MID_ALPHA value. Is the same procees of TODO 5.</p>
+<p>Then you need to clear the fog layer we created before to render all around the target render area. </p>
+<p>So use ClearFogLayer method in fog of war module to clear target render area with GRAY_FOG.</p>
+<h3>Before</h3>
+<img src="Research_docs/Todo%207/no_pop_gif.gif"/>
+<h3>After</h3>
+<img src="Research_docs/Todo%207/pop_gif.gif"/>
+</ul>
+
+<h2>TODO 8: Update alpha layer!</h2>
+<ul>
+<p>To update alpha layer, you just need to check if there’s any alpha cell in camera with a higher value than the MID_ALPHA value.</p>
+<p>If theres one, equal its alpha value to MID_ALPHA.</p>
+<h3>Before</h3>
+<img src="Research_docs/alpha_no_update.png"/>
+<h3>After</h3>
+<img src="Research_docs/alpha_update.png"/>
+</ul>
+
+<h2>Extra Work!</h2>
+<ul>
+<p>Now that you have a functional RTS fog of war system let’s upgrade it!</p>
+<p>Update the ClearAlphaLayer method from fog of war module to have a smoothest result.</p>
+<p>Check the solution release and active the glow mode( F2 ) to see one possible solution.</p>
+<h3>Before</h3>
+<img src="Research_docs/fog_not_smooth.png"/>
+<h3>After</h3>
+<img src="Research_docs/fog_smooth.png"/>
+</ul>
+</ul>
+
 <h1 id="REFERENCES"> References </h1>
+<ul>
+<li><p><a href="http://dictionary.sensagent.com/Fog%20of%20war/en-en/#Grand_strategic">Link</a> about fog of war concept</p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Wargaming#Early_years_to_Kriegsspiel">Link</a> about Kriegsspiel (first war board game)</p></li>
+<li><p><a href="https://archive.org/details/Tanktic-s_1981_Avalon_Hill">Link</a> about Tanktics (first war videogame)</p></li>
+<li><p><a href="http://stackoverflow.com/questions/13654753/sdl-drawing-negative-circles-fog-of-war">Link</a> to another interesting fog of war tutorial</p></li>
+</ul>
