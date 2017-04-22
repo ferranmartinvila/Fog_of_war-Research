@@ -7,7 +7,7 @@
 
 #define ALPHA_LIMIT 255			/* Values between 0 & 255 */
 #define MID_ALPHA 150			/* Values between 0 & 255 */
-#define	DIVISIONS_PER_PIXELS 130	/* Values between 20 & 60 in debug for >60 fps */ /* Values between 20 & 130 in release for >60 fps */
+#define	DIVISIONS_PER_PIXELS 60	/* Values between 20 & 60 in debug for >60 fps */ /* Values between 20 & 130 in release for >60 fps */
 #define RENDER_MARGIN 80		/* Values between 0 & INF */
 
 enum FOG_TYPE

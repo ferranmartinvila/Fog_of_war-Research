@@ -63,8 +63,7 @@ bool j1Player::Update(float dt)
 
 	// TODO 6:	Make player check his vision area
 	//			Here you only need to call CheckVisionArea player entity method
-
-	// player->CheckVisionArea();
+	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
 
 	// ------------------------------------------
 

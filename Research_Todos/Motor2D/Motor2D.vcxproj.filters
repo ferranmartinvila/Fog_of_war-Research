@@ -14,7 +14,7 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="j1Scene.cpp">
-      <Filter>Scenes</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="j1FileSystem.cpp">
       <Filter>Modules</Filter>
@@ -49,7 +49,7 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Modules\EnititiesManager\Entities</Filter>
+      <Filter>Modules\EnititiesManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +66,7 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1Scene.h">
-      <Filter>Scenes</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="j1FileSystem.h">
       <Filter>Modules</Filter>
@@ -113,15 +113,12 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Modules\EnititiesManager\Entities</Filter>
+      <Filter>Modules\EnititiesManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
       <UniqueIdentifier>{244722d1-90ce-423d-8e7a-556211865a32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes">
-      <UniqueIdentifier>{e07660eb-d36f-4cc9-af59-324d31c2f2f6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tools">
       <UniqueIdentifier>{42c748be-4a37-49de-970f-5be811d06b38}</UniqueIdentifier>
@@ -132,8 +129,8 @@
     <Filter Include="Modules\EnititiesManager">
       <UniqueIdentifier>{bfaf59a6-f2ed-48ce-a361-e3cf11d3c42b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\EnititiesManager\Entities">
-      <UniqueIdentifier>{f4dce75b-b01a-4ebe-9f7a-a30e952f130a}</UniqueIdentifier>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{e07660eb-d36f-4cc9-af59-324d31c2f2f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

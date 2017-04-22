@@ -52,10 +52,9 @@ void j1Map::Draw(bool debug)
 		
 		// TODO 2:	Map Optimization!
 		//			Call the improved GetFogID method here to get tile FOG_TYPE.
-		//			The tiles_in_view vector are map coordinates so you can pass them to the GetFogID method widowth transform. 
+		//			The tiles_in_view vector are in map coordinates so you can pass them to the GetFogID method without any transformation. 
 		//			If the FOG_TYPE is DARK_FOG the tile is covered of opaque fog so its not necessary to draw it.
-
-		//if (App->fog_of_war->GetFogID(tiles_in_view[k].x, tiles_in_view[k].y) == DARK_FOG)continue;
+		// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
 
 		//Blit the current tile
 		App->render->TileBlit(tileset->texture, world_loc.x, world_loc.y, &r);
