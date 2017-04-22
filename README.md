@@ -34,6 +34,9 @@
 <img src="Research_docs/battleship.jpg"/>
 
 <p>In videogames is practically the same. It’s true that a lot of videogames simulate the fog of war concept directly with fog but some videogames use other methods. For example, BRAIN / OUT is a shooter that simulates the war ambiguity hiding the players that aren’t doing noisy actions.</p>
+<p>
+<img src="Research_docs/brain_nope.png"/>
+<img src="Research_docs/brain_yes.png"/>
 
 <p>Now that we know what really means Fog of War let’s talk about the different ways in which the ambiguity can affect the user and change the game flow.</p>
 </ul>
