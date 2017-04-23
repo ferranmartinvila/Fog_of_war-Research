@@ -137,22 +137,7 @@
 <h2 id="TODO_4"> TODO 4: Update alpha layer! </h2>
 <ul>
 <p>Alpha layer is built in the GenerateFogOfWar method, and is a huge array of AlphaCells that look like this:</p>
-</ul>
-</ul>
-
-``` 
-class AlphaCell
-{
-  public:
-  iPoint          position;
-  unsigned short  alpha;
-};
-
- ```
-
-<ul>
-<ul>
-<ul>
+<img src="Research_docs/code_img.png"/>
 <p>Collect the candidates of the fog_quadtree to get the alpha cells in camera.</p>
 <p>CollectCandidates quadtree method fills the vector you pass with the alpha cells inside the specified area.</p>
 <p>Iterate the filled vector and call FogBlit method from render module.</p>
