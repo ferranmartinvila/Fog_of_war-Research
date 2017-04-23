@@ -217,6 +217,6 @@ class AlphaCell
 <ul>
 <li><p><a href="http://dictionary.sensagent.com/Fog%20of%20war/en-en">Link</a> about fog of war concept</p></li>
 <li><p><a href="https://en.wikipedia.org/wiki/Wargaming#Early_years_to_Kriegsspiel">Link</a> about Kriegsspiel (first war board game)</p></li>
-<li><p><a href="https://archive.org/details/Tanktic-s_1981_Avalon_Hill">Link</a> about Tanktics (first war videogame)</p></li>
+<li><p><a href="https://archive.org/details/Tanktics_1981_Avalon_Hill">Link</a> about Tanktics (first war videogame)</p></li>
 <li><p><a href="http://stackoverflow.com/questions/13654753/sdl-drawing-negative-circles-fog-of-war">Link</a> to another interesting fog of war tutorial</p></li>
 </ul>
