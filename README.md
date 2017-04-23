@@ -146,7 +146,7 @@ class AlphaCell
   unsigned short  alpha;
 };
 
-```
+ ```
 
 <ul>
 <p>Collect the candidates of the fog_quadtree to get the alpha cells in camera.</p>
