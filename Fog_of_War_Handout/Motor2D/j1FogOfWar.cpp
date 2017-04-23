@@ -91,8 +91,6 @@ FOG_TYPE j1FogOfWar::GetFogID(int x, int y) const
 	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/#TODO_2
 
 	return NO_FOG;
-
-
 }
 
 void j1FogOfWar::ClearAlphaLayer(const Circle zone, unsigned short alpha)
@@ -114,7 +112,7 @@ void j1FogOfWar::ClearFogLayer(const Circle zone, FOG_TYPE type)
 
 	for (uint k = 0; k < size; k++)
 	{
-		// TODO 1:	Discommment this when TODO 1 is done!
+		// TODO 1:	Uncomment this when TODO 1 is done!
 		// fog_layer[tiles_in[k].y * App->map->data.width + tiles_in[k].x] = type;
 	}
 

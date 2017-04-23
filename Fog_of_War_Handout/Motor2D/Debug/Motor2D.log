@@ -1,4 +1,0 @@
-﻿     Creating library C:\Users\ferra\Desktop\Fog_of_war-Research\Fog_of_War_Handout\Debug\Fog of War Handout.lib and object C:\Users\ferra\Desktop\Fog_of_war-Research\Fog_of_War_Handout\Debug\Fog of War Handout.exp
-physfs.lib(physfs.obj) : warning LNK4217: locally defined symbol _sprintf imported in function _PHYSFS_setSaneConfig
-  Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Fog_of_War_Handout\Debug\Fog of War Handout.exe
-  Motor2D.vcxproj -> C:\Users\ferra\Desktop\Fog_of_war-Research\Fog_of_War_Handout\Debug\Fog of War Handout.pdb (Full PDB)

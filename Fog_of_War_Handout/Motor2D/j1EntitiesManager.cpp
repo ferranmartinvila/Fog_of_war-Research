@@ -1,16 +1,8 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include "j1EntitiesManager.h"
 
 #include "j1App.h"
 #include "j1Render.h"
-#include "j1Input.h"
-#include "j1FileSystem.h"
-#include "j1Map.h"
 #include "p2Log.h"
-
-//Testing purposes only should be erased
-#include "j1Scene.h"
 
 //Constructors ========================
 j1EntitiesManager::j1EntitiesManager()
@@ -85,6 +77,8 @@ bool j1EntitiesManager::CleanUp()
 		entity_item++;
 	}
 	entities_list.clear();
+
+	LOG("Entities Cleared!");
 
 	return true;
 }

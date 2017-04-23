@@ -37,16 +37,19 @@ private:
 
 	uint alpha_layer_width = 0;		/*Number of cells in the fog width*/
 	uint alpha_layer_height = 0;	/*Number of cells in the fog height*/
-	
-	uint alpha_cell_size = 0;
+	uint alpha_cell_size = 0;		/*Size of the AlphaCells wall size in pixels*/
 
 public:
 
+	//Generate the fog of war after the map is loaded in scene
 	void		GenerateFogOfWar();
 
+	//Get the FOG_TYPE of a concrete tile
 	FOG_TYPE	GetFogID(int x, int y)const;
 
+	//Set the alpha value x in a concrete zone (graphic layer)
 	void		ClearAlphaLayer(const Circle zone, unsigned short alpha = 0);
+	//Set the FOG_TYPE x in a concrete zone (logic_layer)
 	void		ClearFogLayer(const Circle zone, FOG_TYPE type);
 };
 
