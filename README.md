@@ -40,7 +40,7 @@
 <img src="Research_docs/brain_yes.png"/>
 
 <p>Now that we know what really means Fog of War let’s talk about the different ways in which the ambiguity can affect the user and change the game flow.</p>
-</ul>
+
 
 <h1 id="TYPES"> Fog Types </h1>
 <ul>
