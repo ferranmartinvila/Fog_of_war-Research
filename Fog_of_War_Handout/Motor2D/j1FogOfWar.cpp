@@ -27,14 +27,14 @@ bool j1FogOfWar::PostUpdate()
 	//			Collect the candidates of the fog_quadtree to get the alpha cells in camera.
 	//			Iterate the filled vector and call FogBlit method from render module.
 	//			The cell size is the size of the cell walls in pixel calculated when the fog is generated.
-	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
+	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/#TODO_4
 
 	std::vector<AlphaCell*> in_view_cells; /*Fill this vector with the AlphaCells in camera_viewport*/
 
 	// TODO 8:	Update alpha layer! 
 	//			Check if there's any alpha cell in camera with a higher value than MID_ALPHA 
 	// 			If theres one equal its alpha value to MID_ALPHA
-	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
+	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/#TODO_8
 
 	return true;
 }
@@ -80,7 +80,7 @@ void j1FogOfWar::GenerateFogOfWar()
 	//			Allocate an array of FOG_TYPE for the fog_layer.
 	//			Array size is the same as a map layer so get map width and map height from App->map.data
 	//			Iterate the allocated array and fill it with DARK_FOG type.
-	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
+	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/#TODO_1
 
 }
 
@@ -88,7 +88,7 @@ FOG_TYPE j1FogOfWar::GetFogID(int x, int y) const
 {
 	// TODO 2:	Map optimization
 	//			Improve this function to get the FOG_TYPE of the correct map tile
-	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
+	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/#TODO_2
 
 	return NO_FOG;
 

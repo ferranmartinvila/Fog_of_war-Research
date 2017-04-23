@@ -32,13 +32,13 @@ void MyEntity::Draw()
 	//			ALLY entities are always drawn.
 	//			NEUTRAL entities are not drawn when FOG_TYPE is DARK_FOG.
 	//			ENEMY entities are only drawn when there’s NO_FOG.
-	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
+	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/#TODO_3
 
 	// TODO 5:	Make ally entities clear alpha layer!
 	//			Check if this is an ally entity.
 	//			If is an ally, clear alpha layer around vision area with 0 alpha value.
 	//			To clear alpha layer use ClearAlphaLayer method from fog of war module.
-	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
+	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/#TODO_5
 
 	//Draw entity sprite
 	App->render->CallBlit(sprite.GetRect(), iPoint(-sprite.GetRect().w * 0.5, -sprite.GetRect().h ), sprite.GetColor(), -position.y);
@@ -55,7 +55,7 @@ void MyEntity::CheckVisionArea()
 	// TODO 6:	Make player check his vision area!
 	//			Use entities_quadtree from entities_manager to collect the candidates inside the vision area.
 	//			CollectCandidates quadtree method fill the vector you pass with the entities inside the specified area.
-	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
+	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/#TODO_6
 
 	std::vector<MyEntity*> entities_vec; /*Fill this vector with the entities around vision_area */
 
@@ -63,7 +63,7 @@ void MyEntity::CheckVisionArea()
 	// TODO 7:	Clear fog of war area when a neutral entity is detected!
 	//			Iterate the entities collected in the last TODO and check if there's a neutral entity.
 	//			If there’s one, clear alpha layer around its vision area and fog layer around its render area.
-	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/
+	// 			More Info: https://ferranmartinvila.github.io/Fog_of_war-Research/#TODO_7
 }
 
 //Set Methods =========================
